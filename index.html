@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maxime</title>
+
+<meta name="theme-color" content="#1F6FEB">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Maxime">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+.screen {
+  display: none;
+  height: 100%;
+  flex-direction: column;
+}
+
+#display {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  font-size: 32px;
+  border-bottom: 2px solid #ddd;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background: #eaeaea;
+  padding: 10px;
+}
+
+button {
+  font-size: 20px;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  margin: 5px;
+}
+
+.primary { background: #1F6FEB; color: white; }
+.gray { background: #888; color: white; }
+
+.phrases {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+}
+
+.phrases button {
+  background: #2E7D32;
+  color: white;
+  font-size: 22px;
+}
+
+/* Beheer vaste woorden */
+.manage {
+  padding: 10px;
+  text-align: center;
+}
+
+select {
+  font-size: 18px;
+  padding: 8px;
+  min-width: 250px;
+  margin: 5px;
+}
+
+/* Keyboard */
+.keyboard { padding: 10px; }
+
+.digits {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.digits button {
+  background: #666;
+  color: white;
+  font-size: 16px;
+  padding: 8px 12px;
+  min-width: 44px;
+}
+
+.letters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.keygroup {
+  border-radius: 16px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.k-abc  { background: #c8e6c9; }
+.k-def  { background: #bbdefb; }
+.k-ghi  { background: #dcedc8; }
+.k-jkl  { background: #d1c4e9; }
+.k-mno  { background: #ffe0b2; }
+.k-pqrs { background: #b2dfdb; }
+.k-tuv  { background: #ffccbc; }
+.k-wxyz { background: #e6ee9c; }
+
+.keygroup button {
+  font-size: 24px;
+  padding: 14px;
+  min-width: 48px;
+}
+
+.space {
+  grid-column: span 3;
+}
+
+.space button {
+  font-size: 20px;
+  padding: 18px;
+  min-width: 180px;
+}
+
+/* Profielen */
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+.profile-row button:last-child {
+  background: #c62828;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="screen-profiles" class="screen"></div>
+
+<div id="screen-main" class="screen">
+
+<div id="display">...</div>
+
+<div class="actions">
+  <button class="primary" onclick="speak()">Spreek</button>
+  <button class="gray" onclick="backspace()">Terug</button>
+  <button class="gray" onclick="clearText()">Wissen</button>
+  <button onclick="addPhrase()">+ Vast woord</button>
+  <button onclick="goProfiles()">Profielen</button>
+</div>
+
+<div class="phrases" id="phrases"></div>
+
+<!-- BEHEER VASTE WOORDEN -->
+<div class="manage">
+  <select id="phraseSelect"></select><br>
+  <button onclick="removeSelectedPhrase()">Verwijder geselecteerd woord</button>
+</div>
+
+<div class="keyboard">
+  <div class="digits">
+    <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+    <button>6</button><button>7</button><button>8</button><button>9</button><button>0</button>
+  </div>
+
+  <div class="letters">
+    <div class="keygroup k-abc"><button>A</button><button>B</button><button>C</button></div>
+    <div class="keygroup k-def"><button>D</button><button>E</button><button>F</button></div>
+    <div class="keygroup k-ghi"><button>G</button><button>H</button><button>I</button></div>
+    <div class="keygroup k-jkl"><button>J</button><button>K</button><button>L</button></div>
+    <div class="keygroup k-mno"><button>M</button><button>N</button><button>O</button></div>
+    <div class="keygroup k-pqrs"><button>P</button><button>Q</button><button>R</button><button>S</button></div>
+    <div class="keygroup k-tuv"><button>T</button><button>U</button><button>V</button></div>
+    <div class="keygroup k-wxyz"><button>W</button><button>X</button><button>Y</button><button>Z</button></div>
+    <div class="keygroup space"><button>Spatie</button></div>
+  </div>
+</div>
+</div>
+
+<script>
+let profiles = JSON.parse(localStorage.getItem("profiles")) || [];
+let activeProfile = null;
+let text = "";
+
+const BASE_PHRASES = ["Maxime ", "Maxime is groot", "Maxime komt", "zaterdag ", "zondag ", "Ik heb ", "Ik ben ", "Ik wil ", "honger ", "dorst ", "cola ", "warme choco ", "Hoe groot is ", "Hoe oud is ", "Wanneer is  ", "overleden ", "Kan je helpen? ", "Dankjewel "];
+
+/* Screens */
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
+  document.getElementById(id).style.display="flex";
+}
+
+/* Profielen */
+function renderProfiles(){
+  const div=document.getElementById("screen-profiles");
+  div.innerHTML="<h2>Kies profiel</h2>";
+
+  profiles.forEach(p=>{
+    const row=document.createElement("div");
+    row.className="profile-row";
+
+    const b=document.createElement("button");
+    b.innerText=p.name;
+    b.onclick=()=>loadProfile(p.id);
+
+    const d=document.createElement("button");
+    d.innerText="X";
+    d.onclick=()=>deleteProfile(p.id);
+
+    row.appendChild(b);
+    row.appendChild(d);
+    div.appendChild(row);
+  });
+
+  const add=document.createElement("button");
+  add.innerText="+ Nieuw profiel";
+  add.onclick=addProfile;
+  div.appendChild(add);
+}
+
+function addProfile(){
+  const name=prompt("Naam profiel:");
+  if(!name)return;
+  profiles.push({id:Date.now(),name,phrases:[...BASE_PHRASES]});
+  save();
+  renderProfiles();
+}
+
+function deleteProfile(id){
+  if(!confirm("Profiel verwijderen?"))return;
+  profiles=profiles.filter(p=>p.id!==id);
+  save();
+  renderProfiles();
+}
+
+function loadProfile(id){
+  activeProfile=profiles.find(p=>p.id===id);
+  text="";
+  renderPhrases();
+  updateSelect();
+  updateDisplay();
+  showScreen("screen-main");
+}
+
+function goProfiles(){showScreen("screen-profiles");}
+function save(){localStorage.setItem("profiles",JSON.stringify(profiles));}
+
+/* Tekst */
+function updateDisplay(){display.innerText=text||"...";}
+function addText(t){text+=t;updateDisplay();}
+function clearText(){text="";updateDisplay();}
+function backspace(){text=text.slice(0,-1);updateDisplay();}
+
+/* Spraak */
+function speak(){
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="nl-NL";
+  speechSynthesis.speak(u);
+}
+
+/* Vaste woorden */
+function renderPhrases(){
+  const div=document.getElementById("phrases");
+  div.innerHTML="";
+  activeProfile.phrases.forEach(p=>{
+    const b=document.createElement("button");
+    b.innerText=p.trim();
+    b.onclick=()=>addText(p);
+    div.appendChild(b);
+  });
+}
+
+function addPhrase(){
+  const p=prompt("Nieuw vast woord:");
+  if(!p)return;
+  activeProfile.phrases.push(p+" ");
+  save();
+  renderPhrases();
+  updateSelect();
+}
+
+function updateSelect(){
+  const sel=document.getElementById("phraseSelect");
+  sel.innerHTML="";
+  activeProfile.phrases.forEach((p,i)=>{
+    const o=document.createElement("option");
+    o.value=i;
+    o.innerText=p.trim();
+    sel.appendChild(o);
+  });
+}
+
+function removeSelectedPhrase(){
+  const sel=document.getElementById("phraseSelect");
+  if(sel.value===null)return;
+  if(!confirm("Geselecteerd vast woord verwijderen?"))return;
+  activeProfile.phrases.splice(sel.value,1);
+  save();
+  renderPhrases();
+  updateSelect();
+}
+
+/* Keyboard */
+document.querySelectorAll(".keyboard button").forEach(b=>{
+  b.onclick=()=>{
+    const v=b.innerText;
+    if(v==="Spatie")addText(" ");
+    else if(!isNaN(v))addText(v);
+    else addText(v.toLowerCase());
+  };
+});
+
+/* Start */
+renderProfiles();
+showScreen("screen-profiles");
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
