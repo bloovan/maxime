@@ -15,9 +15,9 @@ html, body {
 }
 
 button {
-  font-size: 18px;             /* ✅ HERSTELD */
-  padding: 10px;
-  border-radius: 12px;
+  font-size: 16px;
+  padding: 6px 8px;
+  border-radius: 10px;
   border: none;
 }
 
@@ -45,7 +45,7 @@ button {
   padding: 20px;
 }
 
-/* ================= PROFIELSCHERM ================= */
+/* ================= PROFIELEN ================= */
 #screen-profiles {
   padding: 20px;
 }
@@ -95,7 +95,7 @@ button {
   width: 100%;
   background: #1F6FEB;
   color: white;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 /* ================= MAIN ================= */
@@ -105,15 +105,12 @@ button {
   height: 100%;
 }
 
-/* ✅ DISPLAY HERSTELD */
 #display {
   background: white;
-  padding: 14px;
-  font-size: 26px;              /* ✅ HERSTELD */
-  min-height: 80px;
+  padding: 12px;
+  font-size: 24px;
+  min-height: 70px;
   border-bottom: 2px solid #ccc;
-  overflow-y: auto;
-  flex-shrink: 0;
 }
 
 /* ================= MIDDLE ================= */
@@ -124,7 +121,7 @@ button {
   overflow: hidden;
 }
 
-/* Vaste woorden */
+/* ================= PHRASES ================= */
 .phrases {
   background: #eef2f5;
   padding: 8px;
@@ -138,10 +135,10 @@ button {
   width: 100%;
   background: #2E7D32;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
 }
 
-/* ================= TOETSENBORD ================= */
+/* ================= KEYBOARD ================= */
 .keyboard {
   padding: 8px;
   display: grid;
@@ -152,27 +149,31 @@ button {
 /* LETTERS */
 .letterboard {
   display: grid;
-  gap: 6px;
+  gap: 8px;
 }
 
 .letter-row {
   display: flex;
-  gap: 6px;
+  gap: 8px;
+  justify-content: flex-start;
 }
 
 .keygroup {
-  flex: 1;
+  flex: 0 0 auto;
+  max-width: 120px;
   padding: 6px;
-  border-radius: 14px;
+  border-radius: 12px;
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
   justify-content: center;
+  border: 2px solid rgba(0,0,0,0.25);
 }
 
 .keygroup button {
-  min-width: 30px;
-  font-size: 16px;
+  min-width: 28px;
+  padding: 6px 0;
+  font-size: 14px;
 }
 
 /* kleuren */
@@ -206,7 +207,9 @@ button {
 .digitboard button {
   background: #555;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 10px;
 }
 
 /* ACTIES */
@@ -214,6 +217,7 @@ button {
   background: #e0e0e0;
   padding: 8px;
   display: flex;
+  gap: 6px;
   justify-content: space-around;
 }
 
@@ -233,14 +237,12 @@ button {
   Draai je toestel horizontaal<br>of gebruik een tablet
 </div>
 
-<!-- PROFIELEN -->
 <div id="screen-profiles" class="screen">
   <div class="profile-title">👤 Kies profiel</div>
   <div id="profileGrid" class="profile-grid"></div>
   <button class="profile-add" onclick="addProfile()">➕ Nieuw profiel</button>
 </div>
 
-<!-- MAIN -->
 <div id="screen-main" class="screen">
   <div id="display">...</div>
 
@@ -289,18 +291,15 @@ button {
 </div>
 
 <script>
-/* ===== DATA ===== */
 let profiles=[{id:1,name:"Eddy",phrases:["Ik heb ","Ik wil "]}];
 let activeProfile=null;
 let text="";
 
-/* ===== NAV ===== */
 function showScreen(id){
   document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
   document.getElementById(id).style.display="block";
 }
 
-/* ===== PROFILES ===== */
 function renderProfiles(){
   profileGrid.innerHTML="";
   profiles.forEach(p=>{
@@ -330,7 +329,6 @@ function loadProfile(id){
 }
 function goProfiles(){showScreen("screen-profiles");}
 
-/* ===== TEKST ===== */
 const display=document.getElementById("display");
 function updateDisplay(){display.textContent=text||"...";}
 function addText(t){text+=t;updateDisplay();}
@@ -338,17 +336,13 @@ function backspace(){text=text.slice(0,-1);updateDisplay();}
 function clearText(){text="";updateDisplay();}
 function speak(){
   if (!text) return;
-
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = "nl-NL";          // ✅ DIT IS DE OPLOSSING
-  u.rate = 0.9;              // optioneel: iets rustiger
-  u.pitch = 1;
-
-  speechSynthesis.cancel();  // voorkomt overlap op iOS
+  u.lang = "nl-NL";
+  u.rate = 0.9;
+  speechSynthesis.cancel();
   speechSynthesis.speak(u);
 }
 
-/* ===== WOORDEN ===== */
 function renderPhrases(){
   phrases.innerHTML="";
   activeProfile.phrases.forEach(p=>{
@@ -361,7 +355,8 @@ function renderPhrases(){
 function addPhrase(){
   const p=prompt("Nieuw vast woord:");
   if(!p)return;
-  activeProfile.phrases.push(p+" "); renderPhrases(); updateSelect();
+  activeProfile.phrases.push(p+" ");
+  renderPhrases(); updateSelect();
 }
 function updateSelect(){
   phraseSelect.innerHTML="";
@@ -376,7 +371,6 @@ function removeSelectedPhrase(){
   renderPhrases(); updateSelect();
 }
 
-/* ===== KEYBOARD ===== */
 document.querySelectorAll(".keyboard button").forEach(b=>{
   b.onclick=()=>{
     const v=b.textContent;
@@ -385,7 +379,6 @@ document.querySelectorAll(".keyboard button").forEach(b=>{
   };
 });
 
-/* start */
 renderProfiles();
 showScreen("screen-profiles");
 </script>
