@@ -160,23 +160,19 @@ button {
   gap: 6px;
 }
 
-/* ✅ COMPACTE LETTERGROEPEN – ALTIJD 1 RIJ */
 .keygroup {
   flex: 1;
-  padding: 4px;            /* kleiner kader */
-  border-radius: 12px;
+  padding: 6px;
+  border-radius: 14px;
   display: flex;
-  flex-wrap: nowrap;       /* 🔥 DIT IS CRUCIAAL */
-  gap: 2px;                /* minder ruimte tussen letters */
+  flex-wrap: wrap;
+  gap: 4px;
   justify-content: center;
-  align-items: center;
 }
 
 .keygroup button {
-  min-width: 26px;         /* compacter, maar nog goed tappable */
-  padding: 6px;
+  min-width: 30px;
   font-size: 16px;
-  white-space: nowrap;     /* extra veiligheid */
 }
 
 /* kleuren */
@@ -344,17 +340,11 @@ function speak(){
   if (!text) return;
 
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = "nl-NL";
-  u.rate = 0.9;
+  u.lang = "nl-NL";          // ✅ DIT IS DE OPLOSSING
+  u.rate = 0.9;              // optioneel: iets rustiger
+  u.pitch = 1;
 
-  const voices = speechSynthesis.getVoices();
-  const dutchVoice = voices.find(v => v.lang === "nl-NL");
-
-  if (dutchVoice) {
-    u.voice = dutchVoice;
-  }
-
-  speechSynthesis.cancel();
+  speechSynthesis.cancel();  // voorkomt overlap op iOS
   speechSynthesis.speak(u);
 }
 
