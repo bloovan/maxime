@@ -336,7 +336,23 @@ function updateDisplay(){display.textContent=text||"...";}
 function addText(t){text+=t;updateDisplay();}
 function backspace(){text=text.slice(0,-1);updateDisplay();}
 function clearText(){text="";updateDisplay();}
-function speak(){ if(!text)return; speechSynthesis.speak(new SpeechSynthesisUtterance(text)); }
+function speak(){
+  if (!text) return;
+
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "nl-NL";
+  u.rate = 0.9;
+
+  const voices = speechSynthesis.getVoices();
+  const dutchVoice = voices.find(v => v.lang === "nl-NL");
+
+  if (dutchVoice) {
+    u.voice = dutchVoice;
+  }
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
 
 /* ===== WOORDEN ===== */
 function renderPhrases(){
