@@ -233,6 +233,26 @@ select {
   #rotate-warning { display: flex; }
   body > *:not(#rotate-warning) { display: none !important; }
 }
+
+/* ✅ iPhone LANDSCAPE: ALLES TERUG ZICHTBAAR MAKEN */
+@media (max-width: 700px) and (orientation: landscape) {
+  #rotate-warning {
+    display: none !important;
+  }
+
+  body > * {
+    display: initial !important;
+  }
+
+  .screen {
+    display: none;
+  }
+
+  #screen-main {
+    display: grid !important;
+  }
+}
+
 </style>
 </head>
 
