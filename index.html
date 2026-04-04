@@ -6,6 +6,7 @@
 <title>Maxime</title>
 
 <style>
+/* ================= BASIS ================= */
 html, body {
   margin: 0;
   height: 100%;
@@ -13,7 +14,6 @@ html, body {
   background: #f4f6f8;
 }
 
-/* ================= ALGEMEEN ================= */
 button {
   font-size: 18px;
   padding: 10px;
@@ -41,7 +41,7 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 24px;
+  font-size: 22px;
   padding: 20px;
 }
 
@@ -89,6 +89,7 @@ button {
   height: 36px;
   border-radius: 50%;
   font-size: 16px;
+  padding: 0;
 }
 
 .profile-add {
@@ -104,23 +105,29 @@ button {
 /* ================= HOOFDSCHERM ================= */
 /* ================================================= */
 #screen-main {
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
+/* ✅ DISPLAY ALTIJD ZICHTBAAR */
 #display {
   background: white;
-  padding: 16px;
-  font-size: 28px;
+  padding: 14px;
+  font-size: 26px;
   border-bottom: 2px solid #ccc;
+  min-height: 70px;
+  max-height: 110px;
   overflow-y: auto;
+  flex-shrink: 0;
 }
 
 /* ===== MIDDEN ===== */
 .middle {
+  flex: 1;
   display: grid;
   grid-template-columns: 30% 70%;
+  overflow: hidden;
 }
 
 /* ===== VASTE WOORDEN ===== */
@@ -136,7 +143,7 @@ button {
   width: 100%;
   background: #2E7D32;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 /* ================================================= */
@@ -144,16 +151,15 @@ button {
 /* ================================================= */
 .keyboard {
   padding: 8px;
+  overflow-y: auto;
 }
 
-/* 4 kolommen i.p.v. 3 */
 .letters {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
-/* compacte keygroup */
 .keygroup {
   border-radius: 14px;
   padding: 6px;
@@ -164,12 +170,12 @@ button {
 }
 
 .keygroup button {
-  min-width: 36px;
-  padding: 8px;
-  font-size: 18px;
+  min-width: 34px;
+  padding: 6px;
+  font-size: 16px;
 }
 
-/* kleuren per groep */
+/* kleuren */
 .k-abc  { background: #c8e6c9; }
 .k-def  { background: #bbdefb; }
 .k-ghi  { background: #dcedc8; }
@@ -179,13 +185,8 @@ button {
 .k-tuv  { background: #ffccbc; }
 .k-wxyz { background: #e6ee9c; }
 
-/* spatie */
 .space {
   grid-column: span 4;
-}
-.space button {
-  font-size: 18px;
-  padding: 10px 18px;
 }
 
 /* ===== ACTIES ===== */
@@ -194,6 +195,7 @@ button {
   justify-content: space-around;
   background: #e0e0e0;
   padding: 8px;
+  flex-shrink: 0;
 }
 
 /* ===== BEHEER ===== */
@@ -203,7 +205,9 @@ button {
   display: flex;
   gap: 10px;
   justify-content: center;
+  flex-shrink: 0;
 }
+
 .manage select {
   font-size: 16px;
   padding: 6px;
@@ -275,7 +279,7 @@ window.addEventListener("orientationchange", checkOrientation);
 /* ================= SCHERMEN ================= */
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.style.display="none");
-  document.getElementById(id).style.display="grid";
+  document.getElementById(id).style.display="block";
 }
 
 /* ================= DATA ================= */
@@ -283,29 +287,56 @@ const display=document.getElementById("display");
 let profiles=[{id:1,name:"Maxime",phrases:["Ik heb ","Ik wil ","Dankjewel "]}];
 let activeProfile=null;
 let text="";
+const EMOJIS=["😊","👧","👦","🧒","🐶","🐱","⭐","❤️"];
 
 /* ================= PROFILES ================= */
 function renderProfiles(){
-  const g=document.getElementById("profileGrid"); g.innerHTML="";
-  profiles.forEach(p=>{
+  const g=document.getElementById("profileGrid");
+  g.innerHTML="";
+  profiles.forEach((p,i)=>{
     const c=document.createElement("div");
     c.className="profile-card";
-    c.innerHTML=`<div class="profile-emoji">😊</div>${p.name}`;
     c.onclick=()=>loadProfile(p.id);
+
+    const e=document.createElement("div");
+    e.className="profile-emoji";
+    e.textContent=EMOJIS[i%EMOJIS.length];
+
+    const n=document.createElement("div");
+    n.textContent=p.name;
+
+    const d=document.createElement("button");
+    d.className="profile-delete";
+    d.textContent="🗑️";
+    d.onclick=(ev)=>{
+      ev.stopPropagation();
+      deleteProfile(p.id);
+    };
+
+    c.append(e,n,d);
     g.appendChild(c);
   });
 }
+
 function addProfile(){
   const n=prompt("Naam profiel:");
   if(!n)return;
   profiles.push({id:Date.now(),name:n,phrases:["Ik heb ","Ik wil "]});
   renderProfiles();
 }
+
+function deleteProfile(id){
+  if(!confirm("Profiel verwijderen?"))return;
+  profiles=profiles.filter(p=>p.id!==id);
+  renderProfiles();
+}
+
 function loadProfile(id){
   activeProfile=profiles.find(p=>p.id===id);
   text=""; updateDisplay(); renderPhrases(); updateSelect();
   showScreen("screen-main");
 }
+
 function goProfiles(){showScreen("screen-profiles");}
 
 /* ================= TEKST ================= */
@@ -324,7 +355,8 @@ function renderPhrases(){
   const d=document.getElementById("phrases"); d.innerHTML="";
   activeProfile.phrases.forEach(p=>{
     const b=document.createElement("button");
-    b.textContent=p.trim(); b.onclick=()=>addText(p);
+    b.textContent=p.trim();
+    b.onclick=()=>addText(p);
     d.appendChild(b);
   });
 }
@@ -356,7 +388,9 @@ document.querySelectorAll(".keyboard button").forEach(b=>{
 });
 
 /* start */
-renderProfiles(); showScreen("screen-profiles"); checkOrientation();
+renderProfiles();
+showScreen("screen-profiles");
+checkOrientation();
 </script>
 
 </body>
