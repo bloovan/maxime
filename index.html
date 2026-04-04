@@ -21,7 +21,6 @@ button {
   border: none;
   cursor: pointer;
 }
-
 .primary { background: #1F6FEB; color: white; }
 .gray { background: #777; color: white; }
 
@@ -31,8 +30,50 @@ button {
   height: 100%;
 }
 
+/* ================= ROTATE WARNING ================= */
+#rotate-warning {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #1F6FEB;
+  color: white;
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 26px;
+  padding: 20px;
+}
+
+/* ===== iPhone PORTRAIT: blokkeren ===== */
+@media (max-width: 700px) and (orientation: portrait) {
+  #rotate-warning { display: flex; }
+  body > *:not(#rotate-warning) {
+    display: none !important;
+  }
+}
+
+/* ✅ iPhone LANDSCAPE FIX (iOS Safari) */
+@media (max-width: 700px) and (orientation: landscape) {
+  #rotate-warning {
+    display: none !important;
+  }
+
+  body > * {
+    display: initial !important;
+  }
+
+  .screen {
+    display: none;
+  }
+
+  #screen-main {
+    display: grid !important;
+  }
+}
+
 /* ================================================= */
-/* =============== PROFIELSCHERM =================== */
+/* ================= PROFIELSCHERM ================= */
 /* ================================================= */
 #screen-profiles {
   display: grid;
@@ -99,7 +140,7 @@ button {
 }
 
 /* ================================================= */
-/* ================= HOOFDSCHERM =================== */
+/* ================= HOOFDSCHERM ================= */
 /* ================================================= */
 #screen-main {
   display: grid;
@@ -124,7 +165,7 @@ button {
   overflow: hidden;
 }
 
-/* --- links: woorden --- */
+/* ===== LINKS: vaste woorden ===== */
 .phrases {
   background: #eef2f5;
   padding: 12px;
@@ -141,7 +182,7 @@ button {
   font-size: 22px;
 }
 
-/* --- rechts: toetsenbord --- */
+/* ===== RECHTS: toetsenbord ===== */
 .keyboard {
   padding: 12px;
 }
@@ -211,48 +252,6 @@ select {
   padding: 8px;
   width: 60%;
 }
-
-/* ================================================= */
-/* =========== iPhone portrait blokkeren ============ */
-/* ================================================= */
-#rotate-warning {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #1F6FEB;
-  color: white;
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 26px;
-  padding: 20px;
-}
-
-@media (max-width: 700px) and (orientation: portrait) {
-  #rotate-warning { display: flex; }
-  body > *:not(#rotate-warning) { display: none !important; }
-}
-
-/* ✅ iPhone LANDSCAPE: ALLES TERUG ZICHTBAAR MAKEN */
-@media (max-width: 700px) and (orientation: landscape) {
-  #rotate-warning {
-    display: none !important;
-  }
-
-  body > * {
-    display: initial !important;
-  }
-
-  .screen {
-    display: none;
-  }
-
-  #screen-main {
-    display: grid !important;
-  }
-}
-
 </style>
 </head>
 
@@ -333,7 +332,6 @@ function showScreen(id){
 function renderProfiles(){
   const grid = document.getElementById("profileGrid");
   grid.innerHTML = "";
-
   profiles.forEach((p,i)=>{
     const card=document.createElement("div");
     card.className="profile-card";
