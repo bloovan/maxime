@@ -15,11 +15,12 @@ html, body {
 
 /* ================= ALGEMEEN ================= */
 button {
-  font-size: 20px;
-  padding: 14px;
-  border-radius: 14px;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 12px;
   border: none;
 }
+
 .primary { background: #1F6FEB; color: white; }
 .gray { background: #777; color: white; }
 
@@ -40,62 +41,60 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 26px;
-  padding: 24px;
+  font-size: 24px;
+  padding: 20px;
 }
 
 /* ================================================= */
 /* ================= PROFIELSCHERM ================= */
 /* ================================================= */
 #screen-profiles {
-  padding: 24px;
+  padding: 20px;
 }
 
 .profile-title {
   text-align: center;
-  font-size: 34px;
-  margin-bottom: 24px;
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .profile-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
 
 .profile-card {
   background: white;
-  border-radius: 22px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 20px;
   text-align: center;
-  font-size: 26px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  font-size: 24px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.15);
   position: relative;
   cursor: pointer;
 }
 
 .profile-emoji {
-  font-size: 52px;
-  margin-bottom: 8px;
+  font-size: 48px;
 }
 
 .profile-delete {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   background: #c62828;
   color: white;
-  font-size: 18px;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  padding: 0;
+  font-size: 16px;
 }
 
 .profile-add {
-  margin-top: 24px;
-  font-size: 24px;
-  padding: 18px;
+  margin-top: 20px;
+  font-size: 22px;
+  padding: 14px;
   background: #1F6FEB;
   color: white;
   width: 100%;
@@ -110,11 +109,10 @@ button {
   height: 100%;
 }
 
-/* ===== DISPLAY ===== */
 #display {
   background: white;
-  padding: 20px;
-  font-size: 32px;
+  padding: 16px;
+  font-size: 28px;
   border-bottom: 2px solid #ccc;
   overflow-y: auto;
 }
@@ -125,59 +123,53 @@ button {
   grid-template-columns: 30% 70%;
 }
 
-/* links: vaste woorden */
+/* ===== VASTE WOORDEN ===== */
 .phrases {
   background: #eef2f5;
-  padding: 12px;
+  padding: 8px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .phrases button {
   width: 100%;
   background: #2E7D32;
   color: white;
-  font-size: 22px;
+  font-size: 20px;
 }
 
-/* rechts: toetsenbord */
+/* ================================================= */
+/* ========== COMPACTE LETTERGROEPEN =============== */
+/* ================================================= */
 .keyboard {
-  padding: 12px;
+  padding: 8px;
 }
 
-.digits {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-.digits button {
-  background: #666;
-  color: white;
-}
-
-/* ===== LETTERS ===== */
+/* 4 kolommen i.p.v. 3 */
 .letters {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
 }
 
-/* ===== KEYGROUPS ===== */
+/* compacte keygroup */
 .keygroup {
-  border-radius: 18px;
-  padding: 10px;
+  border-radius: 14px;
+  padding: 6px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
   justify-content: center;
-}
-.keygroup button {
-  font-size: 26px;
+  gap: 4px;
 }
 
-/* ===== KLEUREN PER LETTERGROEP ===== */
+.keygroup button {
+  min-width: 36px;
+  padding: 8px;
+  font-size: 18px;
+}
+
+/* kleuren per groep */
 .k-abc  { background: #c8e6c9; }
 .k-def  { background: #bbdefb; }
 .k-ghi  { background: #dcedc8; }
@@ -187,8 +179,13 @@ button {
 .k-tuv  { background: #ffccbc; }
 .k-wxyz { background: #e6ee9c; }
 
+/* spatie */
 .space {
-  grid-column: span 3;
+  grid-column: span 4;
+}
+.space button {
+  font-size: 18px;
+  padding: 10px 18px;
 }
 
 /* ===== ACTIES ===== */
@@ -196,22 +193,20 @@ button {
   display: flex;
   justify-content: space-around;
   background: #e0e0e0;
-  padding: 10px;
+  padding: 8px;
 }
 
 /* ===== BEHEER ===== */
 .manage {
   background: #dcdcdc;
-  padding: 10px;
+  padding: 8px;
   display: flex;
-  justify-content: center;
   gap: 10px;
-  flex-wrap: wrap;
+  justify-content: center;
 }
 .manage select {
-  font-size: 18px;
-  padding: 8px;
-  min-width: 220px;
+  font-size: 16px;
+  padding: 6px;
 }
 </style>
 </head>
@@ -222,14 +217,14 @@ button {
   Draai je toestel horizontaal<br>of gebruik een tablet
 </div>
 
-<!-- PROFIELSCHERM -->
+<!-- PROFIEL -->
 <div id="screen-profiles" class="screen">
   <div class="profile-title">👤 Kies profiel</div>
   <div id="profileGrid" class="profile-grid"></div>
   <button class="profile-add" onclick="addProfile()">➕ Nieuw profiel</button>
 </div>
 
-<!-- HOOFDSCHERM -->
+<!-- MAIN -->
 <div id="screen-main" class="screen">
 
   <div id="display">...</div>
@@ -238,11 +233,6 @@ button {
     <div class="phrases" id="phrases"></div>
 
     <div class="keyboard">
-      <div class="digits">
-        <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
-        <button>6</button><button>7</button><button>8</button><button>9</button><button>0</button>
-      </div>
-
       <div class="letters">
         <div class="keygroup k-abc"><button>A</button><button>B</button><button>C</button></div>
         <div class="keygroup k-def"><button>D</button><button>E</button><button>F</button></div>
@@ -267,7 +257,7 @@ button {
 
   <div class="manage">
     <select id="phraseSelect"></select>
-    <button class="gray" onclick="removeSelectedPhrase()">Verwijder geselecteerd woord</button>
+    <button class="gray" onclick="removeSelectedPhrase()">Verwijder woord</button>
   </div>
 </div>
 
@@ -284,144 +274,89 @@ window.addEventListener("orientationchange", checkOrientation);
 
 /* ================= SCHERMEN ================= */
 function showScreen(id) {
-  document.querySelectorAll(".screen").forEach(s => s.style.display = "none");
-  document.getElementById(id).style.display = "grid";
+  document.querySelectorAll(".screen").forEach(s => s.style.display="none");
+  document.getElementById(id).style.display="grid";
 }
 
 /* ================= DATA ================= */
-const display = document.getElementById("display");
-let profiles = [
-  {id:1,name:"Maxime",phrases:["Ik heb ","Ik wil ","Dankjewel "]}
-];
-let activeProfile = null;
-let text = "";
+const display=document.getElementById("display");
+let profiles=[{id:1,name:"Maxime",phrases:["Ik heb ","Ik wil ","Dankjewel "]}];
+let activeProfile=null;
+let text="";
 
-const EMOJIS = ["😊","👧","👦","🧒","🐶","🐱","⭐","❤️"];
-
-/* ================= PROFIELEN ================= */
-function renderProfiles() {
-  const grid = document.getElementById("profileGrid");
-  grid.innerHTML = "";
-  profiles.forEach((p,i) => {
-    const card = document.createElement("div");
-    card.className = "profile-card";
-    card.onclick = () => loadProfile(p.id);
-
-    const emoji = document.createElement("div");
-    emoji.className = "profile-emoji";
-    emoji.textContent = EMOJIS[i % EMOJIS.length];
-
-    const name = document.createElement("div");
-    name.textContent = p.name;
-
-    const del = document.createElement("button");
-    del.className = "profile-delete";
-    del.textContent = "🗑️";
-    del.onclick = (e) => {
-      e.stopPropagation();
-      deleteProfile(p.id);
-    };
-
-    card.append(emoji, name, del);
-    grid.appendChild(card);
+/* ================= PROFILES ================= */
+function renderProfiles(){
+  const g=document.getElementById("profileGrid"); g.innerHTML="";
+  profiles.forEach(p=>{
+    const c=document.createElement("div");
+    c.className="profile-card";
+    c.innerHTML=`<div class="profile-emoji">😊</div>${p.name}`;
+    c.onclick=()=>loadProfile(p.id);
+    g.appendChild(c);
   });
 }
-
-function addProfile() {
-  const n = prompt("Naam profiel:");
-  if(!n) return;
+function addProfile(){
+  const n=prompt("Naam profiel:");
+  if(!n)return;
   profiles.push({id:Date.now(),name:n,phrases:["Ik heb ","Ik wil "]});
   renderProfiles();
 }
-
-function deleteProfile(id) {
-  if(!confirm("Profiel verwijderen?")) return;
-  profiles = profiles.filter(p => p.id !== id);
-  renderProfiles();
-}
-
-function loadProfile(id) {
-  activeProfile = profiles.find(p => p.id === id);
-  text = "";
-  updateDisplay();
-  renderPhrases();
-  updateSelect();
+function loadProfile(id){
+  activeProfile=profiles.find(p=>p.id===id);
+  text=""; updateDisplay(); renderPhrases(); updateSelect();
   showScreen("screen-main");
 }
+function goProfiles(){showScreen("screen-profiles");}
 
-function goProfiles() {
-  showScreen("screen-profiles");
+/* ================= TEKST ================= */
+function updateDisplay(){display.textContent=text||"...";}
+function addText(t){text+=t;updateDisplay();}
+function backspace(){text=text.slice(0,-1);updateDisplay();}
+function clearText(){text="";updateDisplay();}
+function speak(){
+  if(!text)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="nl-NL"; speechSynthesis.speak(u);
 }
 
-/* ================= TEKST & SPRAAK ================= */
-function updateDisplay() {
-  display.textContent = text || "...";
-}
-function addText(t) { text += t; updateDisplay(); }
-function backspace() { text = text.slice(0,-1); updateDisplay(); }
-function clearText() { text = ""; updateDisplay(); }
-
-function speak() {
-  if(!text) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang="nl-NL";
-  speechSynthesis.speak(u);
-}
-
-/* ================= VASTE WOORDEN ================= */
-function renderPhrases() {
-  const d = document.getElementById("phrases");
-  d.innerHTML = "";
-  activeProfile.phrases.forEach(p => {
-    const b = document.createElement("button");
-    b.textContent = p.trim();
-    b.onclick = () => addText(p);
+/* ================= WOORDEN ================= */
+function renderPhrases(){
+  const d=document.getElementById("phrases"); d.innerHTML="";
+  activeProfile.phrases.forEach(p=>{
+    const b=document.createElement("button");
+    b.textContent=p.trim(); b.onclick=()=>addText(p);
     d.appendChild(b);
   });
 }
-
-function addPhrase() {
-  const p = prompt("Nieuw vast woord:");
-  if(!p) return;
-  activeProfile.phrases.push(p + " ");
-  renderPhrases();
-  updateSelect();
+function addPhrase(){
+  const p=prompt("Nieuw vast woord:");
+  if(!p)return;
+  activeProfile.phrases.push(p+" "); renderPhrases(); updateSelect();
 }
-
-function updateSelect() {
-  const s = document.getElementById("phraseSelect");
-  s.innerHTML = "";
-  activeProfile.phrases.forEach((p,i) => {
-    const o = document.createElement("option");
-    o.value = i;
-    o.textContent = p.trim();
-    s.appendChild(o);
+function updateSelect(){
+  const s=document.getElementById("phraseSelect"); s.innerHTML="";
+  activeProfile.phrases.forEach((p,i)=>{
+    const o=document.createElement("option");
+    o.value=i; o.textContent=p.trim(); s.appendChild(o);
   });
 }
-
-function removeSelectedPhrase() {
-  const s = document.getElementById("phraseSelect");
-  if(s.value === "") return;
-  if(!confirm("Geselecteerd vast woord verwijderen?")) return;
+function removeSelectedPhrase(){
+  const s=document.getElementById("phraseSelect");
   activeProfile.phrases.splice(s.value,1);
-  renderPhrases();
-  updateSelect();
+  renderPhrases(); updateSelect();
 }
 
-/* ================= TOETSENBORD ================= */
-document.querySelectorAll(".keyboard button").forEach(b => {
-  b.onclick = () => {
-    const v = b.textContent;
-    if(v === "Spatie") addText(" ");
-    else if(!isNaN(v)) addText(v);
+/* ================= KEYBOARD ================= */
+document.querySelectorAll(".keyboard button").forEach(b=>{
+  b.onclick=()=>{
+    const v=b.textContent;
+    if(v==="Spatie") addText(" ");
     else addText(v.toLowerCase());
   };
 });
 
-/* ================= START ================= */
-renderProfiles();
-showScreen("screen-profiles");
-checkOrientation();
+/* start */
+renderProfiles(); showScreen("screen-profiles"); checkOrientation();
 </script>
 
 </body>
