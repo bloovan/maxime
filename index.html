@@ -160,19 +160,23 @@ button {
   gap: 6px;
 }
 
+/* ✅ COMPACTE LETTERGROEPEN – ALTIJD 1 RIJ */
 .keygroup {
   flex: 1;
-  padding: 6px;
-  border-radius: 14px;
+  padding: 4px;            /* kleiner kader */
+  border-radius: 12px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+  flex-wrap: nowrap;       /* 🔥 DIT IS CRUCIAAL */
+  gap: 2px;                /* minder ruimte tussen letters */
   justify-content: center;
+  align-items: center;
 }
 
 .keygroup button {
-  min-width: 30px;
+  min-width: 26px;         /* compacter, maar nog goed tappable */
+  padding: 6px;
   font-size: 16px;
+  white-space: nowrap;     /* extra veiligheid */
 }
 
 /* kleuren */
