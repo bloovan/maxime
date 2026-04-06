@@ -2,25 +2,22 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover,
-               maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Maxime</title>
 
 <style>
-/* ================= BASIS ================= */
+/* ============ BASIS ============ */
 html, body {
   margin: 0;
   height: 100%;
   font-family: Arial, sans-serif;
   background: #f4f6f8;
-  touch-action: manipulation;
 }
 
 button {
-  font-size: 20px;
-  padding: 14px;
-  border-radius: 16px;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
 }
@@ -33,7 +30,56 @@ button {
   height: 100%;
 }
 
-/* ================= MAIN ================= */
+/* ============ PROFIELEN ============ */
+#screen-profiles {
+  padding: 20px;
+}
+
+.profile-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+  cursor: pointer;
+}
+
+.profile-emoji {
+  font-size: 48px;
+}
+
+.profile-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #c62828;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.profile-add {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 22px;
+}
+
+/* ============ MAIN ============ */
 #screen-main {
   display: flex;
   flex-direction: column;
@@ -42,130 +88,113 @@ button {
 
 #display {
   background: white;
-  padding: 14px 16px;
-  font-size: 28px;
+  padding: 12px 14px;
+  font-size: 26px;
   line-height: 1.3;
-  border-bottom: 3px solid #ccc;
+  border-bottom: 2px solid #ccc;
   user-select: none;
+  position: relative;
 }
 
-/* ================= MIDDLE ================= */
+/* ============ MIDDEN ============ */
 .middle {
   flex: 1;
   display: grid;
   grid-template-columns: 30% 70%;
-  overflow: hidden;
 }
 
 /* VASTE WOORDEN */
 .phrases {
   background: #eef2f5;
-  padding: 10px;
+  padding: 8px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .phrases button {
   width: 100%;
   background: #2E7D32;
   color: white;
-  font-size: 20px;
-  padding: 18px;
 }
 
-/* ================= TOETSENBORD ================= */
+/* ============ TOETSENBORD ============ */
 .keyboard {
-  padding: 10px;
+  padding: 8px;
   display: grid;
   grid-template-columns: 70% 30%;
-  gap: 10px;
+  gap: 8px;
 }
 
-/* LETTERS */
 .letterboard {
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 
 .letter-row {
   display: flex;
-  gap: 10px;
+  gap: 6px;
 }
 
 .keygroup {
   flex: 1;
-  padding: 10px;
-  border-radius: 18px;
+  padding: 6px;
+  border-radius: 14px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px;
   justify-content: center;
 }
 
-.keygroup button {
-  min-width: 44px;
-  min-height: 44px;
-  font-size: 20px;
-}
+.k-abc  { background:#c8e6c9;}
+.k-def  { background:#bbdefb;}
+.k-ghi  { background:#dcedc8;}
+.k-jkl  { background:#d1c4e9;}
+.k-mno  { background:#ffe0b2;}
+.k-pqrs { background:#b2dfdb;}
+.k-tuv  { background:#ffccbc;}
+.k-wxyz { background:#e6ee9c;}
 
-/* kleuren */
-.k-abc  { background: #c8e6c9; }
-.k-def  { background: #bbdefb; }
-.k-ghi  { background: #dcedc8; }
-.k-jkl  { background: #d1c4e9; }
-.k-mno  { background: #ffe0b2; }
-.k-pqrs { background: #b2dfdb; }
-.k-tuv  { background: #ffccbc; }
-.k-wxyz { background: #e6ee9c; }
-
-/* ================= SPATIE ================= */
+/* SPATIE */
 .space-key {
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .space-key button {
   width: 100%;
-  font-size: 24px;
-  padding: 22px;
-  border-radius: 22px;
-  background: #424242;
+  font-size: 20px;
+  padding: 14px;
+  background: #444;
   color: white;
 }
 
-/* ================= CIJFERS ================= */
+/* CIJFERS */
 .digitboard {
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 
 .digit-row {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  gap: 10px;
+  gap: 6px;
 }
 
 .digitboard button {
-  min-height: 60px;
-  font-size: 20px;
   background: #555;
   color: white;
 }
 
-/* ================= ACTIES (vast onderaan) ================= */
+/* ============ ACTIES ============ */
 .actions {
-  position: sticky;
-  bottom: 0;
   background: #e0e0e0;
-  padding: 10px;
+  padding: 8px;
   display: flex;
   justify-content: space-around;
-  gap: 10px;
-  border-top: 3px solid #ccc;
 }
 
-/* ================= BEHEER ================= */
+/* ============ BEHEER ============ */
 .manage {
   display: none;
   background: #eeeeee;
@@ -179,32 +208,29 @@ button {
   display: flex;
 }
 
-/* ============ TABLET-ONLY VERFIJNING ============ */
-@media (hover: none) and (pointer: coarse) {
-  button {
-    font-size: 22px;
-  }
-
-  .phrases button {
-    padding: 22px;
-  }
-
-  .actions button {
-    flex: 1;
-    font-size: 22px;
-    padding: 18px;
-  }
+.manage button,
+.manage select {
+  font-size: 14px;
 }
 </style>
 </head>
 
 <body>
 
-<div id="screen-main" class="screen" style="display:block">
+<!-- PROFIELEN -->
+<div id="screen-profiles" class="screen">
+  <div class="profile-title">👤 Kies profiel</div>
+  <div id="profileGrid" class="profile-grid"></div>
+  <button class="profile-add primary" onclick="addProfile()">➕ Nieuw profiel</button>
+</div>
+
+<!-- MAIN -->
+<div id="screen-main" class="screen">
 
   <div id="display">...</div>
 
   <div class="middle">
+
     <div class="phrases" id="phrases"></div>
 
     <div class="keyboard">
@@ -237,38 +263,162 @@ button {
         <div class="digit-row"><button>7</button><button>8</button><button>9</button></div>
         <div class="digit-row"><button>0</button></div>
       </div>
+
     </div>
   </div>
 
+  <!-- GEBRUIKER -->
   <div class="actions">
-    <button class="primary">Spreek</button>
-    <button class="gray">Terug</button>
-    <button class="gray">Wissen</button>
+    <button class="primary" onclick="speak()">Spreek</button>
+    <button class="gray" onclick="backspace()">Terug</button>
+    <button class="gray" onclick="clearText()">Wissen</button>
   </div>
 
+  <!-- BEHEER -->
   <div class="manage" id="manage">
-    <button>Profielen</button>
-    <button>+ Vast woord</button>
-    <button class="gray">Verwijder woord</button>
+    <button onclick="goProfiles()">Profielen</button>
+    <button onclick="addPhrase()">+ Vast woord</button>
+    <select id="phraseSelect"></select>
+    <button class="gray" onclick="removeSelectedPhrase()">Verwijder woord</button>
   </div>
 
 </div>
 
 <script>
-let text="";
-const display=document.getElementById("display");
+/* ============ DATA ============ */
+let profiles = [{ id:1, name:"Eddy", phrases:["Ik heb ","Ik wil "] }];
+let activeProfile = null;
+let text = "";
 
-function updateDisplay(){ display.textContent=text||"..."; }
-function addText(t){ text+=t;updateDisplay(); }
+/* ============ NAVIGATIE ============ */
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s => s.style.display="none");
+  document.getElementById(id).style.display="block";
+}
 
-document.querySelectorAll("button").forEach(b=>{
+/* ============ PROFIELEN ============ */
+function renderProfiles(){
+  profileGrid.innerHTML="";
+  profiles.forEach(p=>{
+    const c=document.createElement("div");
+    c.className="profile-card";
+    c.onclick=()=>loadProfile(p.id);
+    c.innerHTML=`<div class="profile-emoji">😊</div>${p.name}
+      <button class="profile-delete" onclick="event.stopPropagation();deleteProfile(${p.id})">🗑️</button>`;
+    profileGrid.appendChild(c);
+  });
+}
+
+function addProfile(){
+  const n=prompt("Naam profiel:");
+  if(!n)return;
+  profiles.push({id:Date.now(),name:n,phrases:[]});
+  renderProfiles();
+}
+
+function deleteProfile(id){
+  profiles = profiles.filter(p=>p.id!==id);
+  renderProfiles();
+}
+
+function loadProfile(id){
+  activeProfile = profiles.find(p=>p.id===id);
+  text="";
+  updateDisplay();
+  renderPhrases();
+  updateSelect();
+  showScreen("screen-main");
+}
+
+function goProfiles(){
+  showScreen("screen-profiles");
+  manage.classList.remove("show");
+}
+
+/* ============ TEKST ============ */
+const display = document.getElementById("display");
+function updateDisplay(){ display.textContent = text || "..."; }
+function addText(t){ text+=t; updateDisplay(); }
+function backspace(){ text=text.slice(0,-1); updateDisplay(); }
+function clearText(){ text=""; updateDisplay(); }
+
+function speak(){
+  if(!text)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="nl-NL";
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+/* ============ VASTE WOORDEN ============ */
+function renderPhrases(){
+  phrases.innerHTML="";
+  activeProfile.phrases.forEach(p=>{
+    const b=document.createElement("button");
+    b.textContent=p.trim();
+    b.onclick=()=>addText(p);
+    phrases.appendChild(b);
+  });
+}
+
+function addPhrase(){
+  const p=prompt("Nieuw vast woord:");
+  if(!p)return;
+  activeProfile.phrases.push(p+" ");
+  renderPhrases();
+  updateSelect();
+}
+
+function updateSelect(){
+  phraseSelect.innerHTML="";
+  activeProfile.phrases.forEach((p,i)=>{
+    const o=document.createElement("option");
+    o.value=i;
+    o.textContent=p.trim();
+    phraseSelect.appendChild(o);
+  });
+}
+
+function removeSelectedPhrase(){
+  activeProfile.phrases.splice(phraseSelect.value,1);
+  renderPhrases();
+  updateSelect();
+}
+
+/* ============ TOETSEN ============ */
+document.querySelectorAll(".keyboard button").forEach(b=>{
   b.onclick=()=>{
-    if(b.textContent==="Spatie") addText(" ");
-    else if(/^[A-Z0-9]$/.test(b.textContent)) addText(b.textContent.toLowerCase());
-  }
+    const v=b.textContent;
+    if(v==="Spatie") addText(" ");
+    else addText(v.toLowerCase());
+  };
 });
 
-updateDisplay();
+/* ============ BEHEER TOEGANG ============ */
+const manage = document.getElementById("manage");
+let pressTimer;
+
+/* Tablet: lange druk */
+display.addEventListener("touchstart", ()=>{
+  pressTimer=setTimeout(toggleManage,1500);
+});
+display.addEventListener("touchend", ()=>{
+  clearTimeout(pressTimer);
+});
+
+/* Desktop: rechterklik */
+display.addEventListener("contextmenu", e=>{
+  e.preventDefault();
+  toggleManage();
+});
+
+function toggleManage(){
+  manage.classList.toggle("show");
+}
+
+/* START */
+renderProfiles();
+showScreen("screen-profiles");
 </script>
 
 </body>
