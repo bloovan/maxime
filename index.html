@@ -2,7 +2,9 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover,
+               maximum-scale=1.0, user-scalable=no">
 <title>Maxime</title>
 
 <style>
@@ -12,90 +14,23 @@ html, body {
   height: 100%;
   font-family: Arial, sans-serif;
   background: #f4f6f8;
+  touch-action: manipulation;
 }
 
 button {
-  font-size: 18px;             /* ✅ HERSTELD */
-  padding: 10px;
-  border-radius: 12px;
+  font-size: 20px;
+  padding: 14px;
+  border-radius: 16px;
   border: none;
+  cursor: pointer;
 }
 
 .primary { background: #1F6FEB; color: white; }
 .gray { background: #777; color: white; }
 
-/* ================= SCREENS ================= */
 .screen {
   display: none;
   height: 100%;
-}
-
-/* ================= ROTATE OVERLAY ================= */
-#rotate-warning {
-  position: fixed;
-  inset: 0;
-  background: #1F6FEB;
-  color: white;
-  display: none;
-  z-index: 9999;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 22px;
-  padding: 20px;
-}
-
-/* ================= PROFIELSCHERM ================= */
-#screen-profiles {
-  padding: 20px;
-}
-
-.profile-title {
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap: 20px;
-}
-
-.profile-card {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  font-size: 24px;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,.15);
-  cursor: pointer;
-}
-
-.profile-emoji {
-  font-size: 48px;
-  margin-bottom: 8px;
-}
-
-.profile-delete {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #c62828;
-  color: white;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  font-size: 16px;
-}
-
-.profile-add {
-  margin-top: 20px;
-  width: 100%;
-  background: #1F6FEB;
-  color: white;
-  font-size: 22px;
 }
 
 /* ================= MAIN ================= */
@@ -105,20 +40,14 @@ button {
   height: 100%;
 }
 
-
 #display {
   background: white;
-  padding: 10px 14px;
-  font-size: 26px;
-  line-height: 1.3;          /* ✅ vaste lijnhoogte */
-  
-  max-height: calc(2 * 1.3em + 20px); /* ✅ max 2 regels */
-  overflow-y: auto;          /* ✅ scroll bij meer tekst */
-
-  border-bottom: 2px solid #ccc;
-  flex-shrink: 0;
+  padding: 14px 16px;
+  font-size: 28px;
+  line-height: 1.3;
+  border-bottom: 3px solid #ccc;
+  user-select: none;
 }
-
 
 /* ================= MIDDLE ================= */
 .middle {
@@ -128,55 +57,57 @@ button {
   overflow: hidden;
 }
 
-/* Vaste woorden */
+/* VASTE WOORDEN */
 .phrases {
   background: #eef2f5;
-  padding: 8px;
+  padding: 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .phrases button {
   width: 100%;
   background: #2E7D32;
   color: white;
-  font-size: 18px;
+  font-size: 20px;
+  padding: 18px;
 }
 
 /* ================= TOETSENBORD ================= */
 .keyboard {
-  padding: 8px;
+  padding: 10px;
   display: grid;
   grid-template-columns: 70% 30%;
-  gap: 8px;
+  gap: 10px;
 }
 
 /* LETTERS */
 .letterboard {
   display: grid;
-  gap: 6px;
+  gap: 10px;
 }
 
 .letter-row {
   display: flex;
-  gap: 6px;
+  gap: 10px;
 }
 
 .keygroup {
   flex: 1;
-  padding: 6px;
-  border-radius: 14px;
+  padding: 10px;
+  border-radius: 18px;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 8px;
   justify-content: center;
 }
 
 .keygroup button {
-  min-width: 30px;
-  font-size: 16px;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 20px;
 }
 
 /* kleuren */
@@ -189,83 +120,114 @@ button {
 .k-tuv  { background: #ffccbc; }
 .k-wxyz { background: #e6ee9c; }
 
-/* CIJFERS */
+/* ================= SPATIE ================= */
+.space-key {
+  margin-top: 12px;
+}
+
+.space-key button {
+  width: 100%;
+  font-size: 24px;
+  padding: 22px;
+  border-radius: 22px;
+  background: #424242;
+  color: white;
+}
+
+/* ================= CIJFERS ================= */
 .digitboard {
   display: grid;
-  gap: 6px;
+  gap: 10px;
 }
 
 .digit-row {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  gap: 6px;
-}
-
-.space-row {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 6px;
+  gap: 10px;
 }
 
 .digitboard button {
+  min-height: 60px;
+  font-size: 20px;
   background: #555;
   color: white;
-  font-size: 16px;
 }
 
-/* ACTIES */
+/* ================= ACTIES (vast onderaan) ================= */
 .actions {
+  position: sticky;
+  bottom: 0;
   background: #e0e0e0;
-  padding: 8px;
+  padding: 10px;
   display: flex;
   justify-content: space-around;
+  gap: 10px;
+  border-top: 3px solid #ccc;
 }
 
+/* ================= BEHEER ================= */
 .manage {
-  background: #dcdcdc;
+  display: none;
+  background: #eeeeee;
   padding: 8px;
-  display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.manage.show {
+  display: flex;
+}
+
+/* ============ TABLET-ONLY VERFIJNING ============ */
+@media (hover: none) and (pointer: coarse) {
+  button {
+    font-size: 22px;
+  }
+
+  .phrases button {
+    padding: 22px;
+  }
+
+  .actions button {
+    flex: 1;
+    font-size: 22px;
+    padding: 18px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="rotate-warning">
-  Draai je toestel horizontaal<br>of gebruik een tablet
-</div>
+<div id="screen-main" class="screen" style="display:block">
 
-<!-- PROFIELEN -->
-<div id="screen-profiles" class="screen">
-  <div class="profile-title">👤 Kies profiel</div>
-  <div id="profileGrid" class="profile-grid"></div>
-  <button class="profile-add" onclick="addProfile()">➕ Nieuw profiel</button>
-</div>
-
-<!-- MAIN -->
-<div id="screen-main" class="screen">
   <div id="display">...</div>
 
   <div class="middle">
     <div class="phrases" id="phrases"></div>
 
     <div class="keyboard">
-      <div class="letterboard">
-        <div class="letter-row">
-          <div class="keygroup k-abc"><button>A</button><button>B</button><button>C</button></div>
-          <div class="keygroup k-def"><button>D</button><button>E</button><button>F</button></div>
+      <div>
+        <div class="letterboard">
+          <div class="letter-row">
+            <div class="keygroup k-abc"><button>A</button><button>B</button><button>C</button></div>
+            <div class="keygroup k-def"><button>D</button><button>E</button><button>F</button></div>
+          </div>
+          <div class="letter-row">
+            <div class="keygroup k-ghi"><button>G</button><button>H</button><button>I</button></div>
+            <div class="keygroup k-jkl"><button>J</button><button>K</button><button>L</button></div>
+            <div class="keygroup k-mno"><button>M</button><button>N</button><button>O</button></div>
+          </div>
+          <div class="letter-row">
+            <div class="keygroup k-pqrs"><button>P</button><button>Q</button><button>R</button><button>S</button></div>
+            <div class="keygroup k-tuv"><button>T</button><button>U</button><button>V</button></div>
+            <div class="keygroup k-wxyz"><button>W</button><button>X</button><button>Y</button><button>Z</button></div>
+          </div>
         </div>
-        <div class="letter-row">
-          <div class="keygroup k-ghi"><button>G</button><button>H</button><button>I</button></div>
-          <div class="keygroup k-jkl"><button>J</button><button>K</button><button>L</button></div>
-          <div class="keygroup k-mno"><button>M</button><button>N</button><button>O</button></div>
-        </div>
-        <div class="letter-row">
-          <div class="keygroup k-pqrs"><button>P</button><button>Q</button><button>R</button><button>S</button></div>
-          <div class="keygroup k-tuv"><button>T</button><button>U</button><button>V</button></div>
-          <div class="keygroup k-wxyz"><button>W</button><button>X</button><button>Y</button><button>Z</button></div>
+
+        <div class="space-key">
+          <button>Spatie</button>
         </div>
       </div>
 
@@ -273,125 +235,40 @@ button {
         <div class="digit-row"><button>1</button><button>2</button><button>3</button></div>
         <div class="digit-row"><button>4</button><button>5</button><button>6</button></div>
         <div class="digit-row"><button>7</button><button>8</button><button>9</button></div>
-        <div class="space-row"><button>0</button><button>Spatie</button></div>
+        <div class="digit-row"><button>0</button></div>
       </div>
     </div>
   </div>
 
   <div class="actions">
-    <button class="primary" onclick="speak()">Spreek</button>
-    <button class="gray" onclick="backspace()">Terug</button>
-    <button class="gray" onclick="clearText()">Wissen</button>
-    <button onclick="addPhrase()">+ Vast woord</button>
-    <button onclick="goProfiles()">Profielen</button>
+    <button class="primary">Spreek</button>
+    <button class="gray">Terug</button>
+    <button class="gray">Wissen</button>
   </div>
 
-  <div class="manage">
-    <select id="phraseSelect"></select>
-    <button class="gray" onclick="removeSelectedPhrase()">Verwijder woord</button>
+  <div class="manage" id="manage">
+    <button>Profielen</button>
+    <button>+ Vast woord</button>
+    <button class="gray">Verwijder woord</button>
   </div>
+
 </div>
 
 <script>
-/* ===== DATA ===== */
-let profiles=[{id:1,name:"Eddy",phrases:["Ik heb ","Ik wil "]}];
-let activeProfile=null;
 let text="";
-
-/* ===== NAV ===== */
-function showScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
-  document.getElementById(id).style.display="block";
-}
-
-/* ===== PROFILES ===== */
-function renderProfiles(){
-  profileGrid.innerHTML="";
-  profiles.forEach(p=>{
-    const c=document.createElement("div");
-    c.className="profile-card";
-    c.onclick=()=>loadProfile(p.id);
-    c.innerHTML=`<div class="profile-emoji">😊</div>${p.name}
-    <button class="profile-delete" onclick="event.stopPropagation();deleteProfile(${p.id})">🗑️</button>`;
-    profileGrid.appendChild(c);
-  });
-}
-function addProfile(){
-  const n=prompt("Naam profiel:");
-  if(!n)return;
-  profiles.push({id:Date.now(),name:n,phrases:[]});
-  renderProfiles();
-}
-function deleteProfile(id){
-  profiles=profiles.filter(p=>p.id!==id);
-  renderProfiles();
-}
-function loadProfile(id){
-  activeProfile=profiles.find(p=>p.id===id);
-  text="";
-  updateDisplay(); renderPhrases(); updateSelect();
-  showScreen("screen-main");
-}
-function goProfiles(){showScreen("screen-profiles");}
-
-/* ===== TEKST ===== */
 const display=document.getElementById("display");
-function updateDisplay(){display.textContent=text||"...";}
-function addText(t){text+=t;updateDisplay();}
-function backspace(){text=text.slice(0,-1);updateDisplay();}
-function clearText(){text="";updateDisplay();}
-function speak(){
-  if (!text) return;
 
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "nl-NL";          // ✅ DIT IS DE OPLOSSING
-  u.rate = 0.9;              // optioneel: iets rustiger
-  u.pitch = 1;
+function updateDisplay(){ display.textContent=text||"..."; }
+function addText(t){ text+=t;updateDisplay(); }
 
-  speechSynthesis.cancel();  // voorkomt overlap op iOS
-  speechSynthesis.speak(u);
-}
-
-/* ===== WOORDEN ===== */
-function renderPhrases(){
-  phrases.innerHTML="";
-  activeProfile.phrases.forEach(p=>{
-    const b=document.createElement("button");
-    b.textContent=p.trim();
-    b.onclick=()=>addText(p);
-    phrases.appendChild(b);
-  });
-}
-function addPhrase(){
-  const p=prompt("Nieuw vast woord:");
-  if(!p)return;
-  activeProfile.phrases.push(p+" "); renderPhrases(); updateSelect();
-}
-function updateSelect(){
-  phraseSelect.innerHTML="";
-  activeProfile.phrases.forEach((p,i)=>{
-    const o=document.createElement("option");
-    o.value=i; o.textContent=p.trim();
-    phraseSelect.appendChild(o);
-  });
-}
-function removeSelectedPhrase(){
-  activeProfile.phrases.splice(phraseSelect.value,1);
-  renderPhrases(); updateSelect();
-}
-
-/* ===== KEYBOARD ===== */
-document.querySelectorAll(".keyboard button").forEach(b=>{
+document.querySelectorAll("button").forEach(b=>{
   b.onclick=()=>{
-    const v=b.textContent;
-    if(v==="Spatie") addText(" ");
-    else addText(v.toLowerCase());
-  };
+    if(b.textContent==="Spatie") addText(" ");
+    else if(/^[A-Z0-9]$/.test(b.textContent)) addText(b.textContent.toLowerCase());
+  }
 });
 
-/* start */
-renderProfiles();
-showScreen("screen-profiles");
+updateDisplay();
 </script>
 
 </body>
