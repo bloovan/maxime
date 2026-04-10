@@ -25,6 +25,13 @@ button {
 .primary { background: #1F6FEB; color: white; }
 .gray { background: #777; color: white; }
 
+/* ICONEN */
+svg {
+  vertical-align: middle;
+  fill: currentColor;
+  margin-right: 6px;
+}
+
 /* ================= SCREENS ================= */
 .screen {
   display: none;
@@ -57,11 +64,6 @@ button {
   position: relative;
   box-shadow: 0 4px 10px rgba(0,0,0,.15);
   cursor: pointer;
-}
-
-.profile-emoji {
-  font-size: 48px;
-  margin-bottom: 8px;
 }
 
 .profile-delete {
@@ -133,16 +135,8 @@ button {
   gap: 8px;
 }
 
-/* LETTERBORD */
-.letterboard {
-  display: grid;
-  gap: 6px;
-}
-
-.letter-row {
-  display: flex;
-  gap: 6px;
-}
+.letterboard { display: grid; gap: 6px; }
+.letter-row { display: flex; gap: 6px; }
 
 .keygroup {
   flex: 1;
@@ -154,10 +148,7 @@ button {
   justify-content: center;
 }
 
-.keygroup button {
-  min-width: 30px;
-  font-size: 16px;
-}
+.keygroup button { min-width: 30px; font-size: 16px; }
 
 .k-abc  { background: #c8e6c9; }
 .k-def  { background: #bbdefb; }
@@ -168,11 +159,7 @@ button {
 .k-tuv  { background: #ffccbc; }
 .k-wxyz { background: #e6ee9c; }
 
-/* ================= SPATIE (AANGEPAST) ================= */
-.space-key {
-  margin-top: 8px;
-}
-
+.space-key { margin-top: 8px; }
 .space-key button {
   width: 100%;
   font-size: 20px;
@@ -182,31 +169,17 @@ button {
   color: white;
 }
 
-/* ================= CIJFERS (AANGEPAST) ================= */
-.digitboard {
-  display: grid;
-  gap: 6px;
-}
-
-.digit-row {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 6px;
-}
+.digitboard { display: grid; gap: 6px; }
+.digit-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
 
 .digitboard button {
   font-size: 16px;
   color: #0d47a1;
-  background: #90caf9; /* blauw */
+  background: #90caf9;
 }
 
-.digit-row button:nth-child(2) {
-  background: #a5d6a7; /* groen */
-}
-
-.digit-row button:nth-child(3) {
-  background: #ffcc80; /* oranje */
-}
+.digit-row button:nth-child(2) { background: #a5d6a7; }
+.digit-row button:nth-child(3) { background: #ffcc80; }
 
 /* ================= ACTIES ================= */
 .actions {
@@ -215,52 +188,41 @@ button {
   display: flex;
   justify-content: space-around;
 }
-
-/* ================= BEHEER ================= */
-.manage {
-  background: #eeeeee;
-  padding: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-}
-
-.manage button,
-.manage select {
-  font-size: 14px;
-  padding: 6px 10px;
-}
-
-/* ================= ACTIEKNOPPEN KLEURRIJK ================= */
-
-/* Spreek (blijft primary, eventueel iets levendiger) */
-.actions .primary {
-  background: linear-gradient(90deg, #1F6FEB, #42a5f5);
-}
-
-/* Wis 1 letter */
-.actions button.gray:nth-child(2) {
-  background: linear-gradient(90deg, #ffb74d, #ffa726);
-  color: #4e342e;
-}
-
-/* Wis alles */
-.actions button.gray:nth-child(3) {
-  background: linear-gradient(90deg, #ef9a9a, #e57373);
-  color: #b71c1c;
-}
-
 </style>
 </head>
 
 <body>
 
+<!-- SVG ICON DEFINITIES -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-user" viewBox="0 0 24 24">
+    <circle cx="12" cy="8" r="4"/>
+    <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+  </symbol>
+  <symbol id="icon-plus" viewBox="0 0 24 24">
+    <path d="M11 4h2v16h-2zM4 11h16v2H4z"/>
+  </symbol>
+  <symbol id="icon-trash" viewBox="0 0 24 24">
+    <path d="M5 7h14M9 7V5h6v2M9 10v7M15 10v7M7 7l1 14h8l1-14"/>
+  </symbol>
+  <symbol id="icon-back" viewBox="0 0 24 24">
+    <path d="M15 18l-6-6 6-6"/>
+  </symbol>
+</svg>
+
 <!-- PROFIELEN -->
 <div id="screen-profiles" class="screen">
-  <div class="profile-title">👤 Kies profiel</div>
+  <div class="profile-title">
+    <svg width="32" height="32"><use href="#icon-user"/></svg>
+    Kies profiel
+  </div>
+
   <div id="profileGrid" class="profile-grid"></div>
-  <button class="profile-add" onclick="addProfile()">➕ Nieuw profiel</button>
+
+  <button class="profile-add" onclick="addProfile()">
+    <svg width="20" height="20"><use href="#icon-plus"/></svg>
+    Nieuw profiel
+  </button>
 </div>
 
 <!-- MAIN -->
@@ -308,97 +270,88 @@ button {
     <button class="primary" onclick="speak()">Spreek</button>
     <button class="gray" onclick="backspace()">Wis 1 letter</button>
     <button class="gray" onclick="clearText()">Wis alles</button>
-  </div>
-
-  <div class="manage">
+    <button onclick="goManage()">Beheer</button>
     <button onclick="goProfiles()">Profielen</button>
-    <button onclick="addPhrase()">+ Vast woord</button>
-    <select id="phraseSelect"></select>
-    <button class="gray" onclick="removeSelectedPhrase()">Verwijder woord</button>
   </div>
+</div>
 
+<!-- BEHEER -->
+<div id="screen-manage" class="screen">
+  <div style="padding:20px;">
+    <h2>Beheer profiel: <span id="manageProfileName"></span></h2>
+
+    <button class="primary" onclick="addPhrase()">+ Vast woord</button>
+    <br><br>
+
+    <select id="phraseSelect" style="width:100%; font-size:18px; padding:10px;"></select>
+    <br><br>
+
+    <button class="gray" onclick="removeSelectedPhrase()">Verwijder woord</button>
+    <br><br><hr><br>
+
+    <button onclick="goMain()">
+      <svg width="18" height="18"><use href="#icon-back"/></svg>
+      Terug naar gebruiker
+    </button>
+
+    <button onclick="goProfiles()">Profielen</button>
+  </div>
 </div>
 
 <script>
-/* ================= DATA ================= */
-let profiles=[{
-  id:1,
-  name:"Eddy",
-  gender:"man",
-  phrases:["Ik heb ","Ik wil "]
-}];
-
+let profiles=[{id:1,name:"Eddy",phrases:["Ik heb ","Ik wil "]}];
 let activeProfile=null;
 let text="";
 
-/* ================= NAV ================= */
+/* NAV */
 function showScreen(id){
   document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
   document.getElementById(id).style.display="block";
 }
+function goProfiles(){ activeProfile=null; showScreen("screen-profiles"); }
+function goMain(){ if(activeProfile) showScreen("screen-main"); }
+function goManage(){
+  if(!activeProfile) return;
+  manageProfileName.textContent=activeProfile.name;
+  updateSelect();
+  showScreen("screen-manage");
+}
 
-/* ================= PROFIELEN ================= */
+/* PROFIELEN */
 function renderProfiles(){
   profileGrid.innerHTML="";
   profiles.forEach(p=>{
     const c=document.createElement("div");
     c.className="profile-card";
     c.onclick=()=>loadProfile(p.id);
-
-    const avatar = p.gender === "vrouw" ? "👩" : "👨";
-
-    c.innerHTML=`
-      <div class="profile-emoji">${avatar}</div>
-      ${p.name}
-      <button class="profile-delete"
-        onclick="event.stopPropagation();deleteProfile(${p.id})">🗑️</button>
-    `;
+    c.innerHTML=`${p.name}
+      <button class="profile-delete" onclick="event.stopPropagation();deleteProfile(${p.id})">
+        <svg width="18"ton>`;
     profileGrid.appendChild(c);
   });
 }
-
 function addProfile(){
   const n=prompt("Naam profiel:");
   if(!n)return;
-
-  const g=prompt("Geslacht (man / vrouw):","man");
-  if(!g)return;
-
-  const gender = g.toLowerCase().startsWith("v") ? "vrouw" : "man";
-
-  profiles.push({
-    id:Date.now(),
-    name:n,
-    gender:gender,
-    phrases:[]
-  });
-
+  profiles.push({id:Date.now(),name:n,phrases:[]});
   renderProfiles();
 }
-
 function deleteProfile(id){
   profiles=profiles.filter(p=>p.id!==id);
   renderProfiles();
 }
-
 function loadProfile(id){
   activeProfile=profiles.find(p=>p.id===id);
-  text="";
-  updateDisplay();
-  renderPhrases();
-  updateSelect();
+  text=""; updateDisplay(); renderPhrases();
   showScreen("screen-main");
 }
 
-function goProfiles(){showScreen("screen-profiles");}
-
-/* ================= TEKST ================= */
+/* TEKST */
 const display=document.getElementById("display");
-function updateDisplay(){display.textContent=text||"...";}
-function addText(t){text+=t;updateDisplay();}
-function backspace(){text=text.slice(0,-1);updateDisplay();}
-function clearText(){text="";updateDisplay();}
-
+function updateDisplay(){ display.textContent=text||"..."; }
+function addText(t){ text+=t; updateDisplay(); }
+function backspace(){ text=text.slice(0,-1); updateDisplay(); }
+function clearText(){ text=""; updateDisplay(); }
 function speak(){
   if(!text)return;
   const u=new SpeechSynthesisUtterance(text);
@@ -407,7 +360,7 @@ function speak(){
   speechSynthesis.speak(u);
 }
 
-/* ================= WOORDEN ================= */
+/* WOORDEN */
 function renderPhrases(){
   phrases.innerHTML="";
   activeProfile.phrases.forEach(p=>{
@@ -417,14 +370,12 @@ function renderPhrases(){
     phrases.appendChild(b);
   });
 }
-
 function addPhrase(){
   const p=prompt("Nieuw vast woord:");
   if(!p)return;
   activeProfile.phrases.push(p+" ");
   renderPhrases(); updateSelect();
 }
-
 function updateSelect(){
   phraseSelect.innerHTML="";
   activeProfile.phrases.forEach((p,i)=>{
@@ -433,22 +384,18 @@ function updateSelect(){
     phraseSelect.appendChild(o);
   });
 }
-
 function removeSelectedPhrase(){
+  if(phraseSelect.value==="")return;
   activeProfile.phrases.splice(phraseSelect.value,1);
   renderPhrases(); updateSelect();
 }
 
-/* ================= TOETSEN ================= */
+/* TOETSEN */
 document.querySelectorAll("button").forEach(b=>{
-  if(b.textContent==="Spatie"){
-    b.onclick=()=>addText(" ");
-  } else if (/^[A-Z0-9]$/.test(b.textContent)){
-    b.onclick=()=>addText(b.textContent.toLowerCase());
-  }
+  if(b.textContent==="Spatie") b.onclick=()=>addText(" ");
+  else if (/^[A-Z0-9]$/.test(b.textContent)) b.onclick=()=>addText(b.textContent.toLowerCase());
 });
 
-/* ================= START ================= */
 renderProfiles();
 showScreen("screen-profiles");
 </script>
