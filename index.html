@@ -183,10 +183,131 @@ button.holding {
 button.holding {
   filter: brightness(85%);
 }
+
+/* ================= HOOG-CONTRAST MODUS ================= */
+
+body.high-contrast {
+  background: #000;
+  color: #fff;
+}
+
+/* Display */
+body.high-contrast #display {
+  background: #000;
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+/* Algemeen: alle knoppen */
+body.high-contrast button {
+  color: #000;
+  font-weight: bold;
+  border: 2px solid #000;
+}
+
+/* Klinkers */
+body.high-contrast .keyboard button.vowel {
+  background: #ffff00; /* fel geel */
+}
+
+/* Medeklinkers */
+body.high-contrast .keyboard button.consonant {
+  background: #00bfff; /* fel blauw */
+}
+
+/* Cijfers */
+body.high-contrast .keyboard button.digit {
+  background: #00ff7f; /* fel groen */
+}
+
+/* Spatie */
+body.high-contrast .space-key button {
+  background: #ffffff;
+  color: #000;
+}
+
+/* Vaste woorden */
+body.high-contrast .phrases button {
+  background: #ffffff;
+  color: #000;
+}
+
+/* Actieknoppen */
+body.high-contrast .actions button {
+  background: #ffd700;
+  color: #000;
+}
+
+/* Profielkaarten */
+body.high-contrast .profile-card {
+  background: #ffffff;
+  color: #000;
+}
+
+/* ================= BOVENBALK INSTELLINGEN ================= */
+
+#top-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 10px;
+  background: #dfe3e8;
+  border-bottom: 2px solid #ccc;
+}
+
+#top-controls button {
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: #555;
+  color: #fff;
+}
+
+/* Hoog-contrast aanpassing */
+body.high-contrast #top-controls {
+  background: #000;
+  border-bottom: 2px solid #fff;
+}
+
+body.high-contrast #top-controls button {
+  background: #ffd700;
+  color: #000;
+}
+
+/* ================= TOETSENBORD STRUCTUUR ================= */
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.keygroup.letters {
+  justify-content: space-between;
+}
+
+.keygroup.digits {
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+  border-top: 2px solid #ccc;
+  padding-top: 8px;
+}
+
+/* Extra scheiding in hoog-contrast modus */
+body.high-contrast .keygroup.digits {
+  border-top: 2px solid #fff;
+}
+
 </style>
 </head>
 
 <body>
+<div id="top-controls">
+  <button onclick="toggleHighContrast()">Hoog contrast</button>
+  <button onclick="goManage()">Beheer</button>
+  <button onclick="goProfiles()">Profielen</button>
+</div>
 
 <!-- PROFIELEN -->
 <div id="screen-profiles" class="screen">
@@ -202,35 +323,46 @@ button.holding {
   <div class="middle">
     <div id="phrases" class="phrases"></div>
 
-    <div class="keyboard">
-      <div class="keygroup">
-        <button>A</button><button>B</button><button>C</button>
-        <button>D</button><button>E</button><button>F</button>
-        <button>G</button><button>H</button><button>I</button>
-        <button>J</button><button>K</button><button>L</button>
-        <button>M</button><button>N</button><button>O</button>
-        <button>P</button><button>Q</button><button>R</button>
-        <button>S</button><button>T</button><button>U</button>
-        <button>V</button><button>W</button><button>X</button>
-        <button>Y</button><button>Z</button>
-        <button>1</button><button>2</button><button>3</button>
-        <button>4</button><button>5</button><button>6</button>
-        <button>7</button><button>8</button><button>9</button>
-        <button>0</button>
-      </div>
+<div class="keyboard">
 
-      <div class="space-key">
-        <button>Spatie</button>
-      </div>
-    </div>
+  <!-- LETTERS: RIJ 1 -->
+  <div class="keygroup letters">
+    <button>A</button><button>B</button><button>C</button>
+    <button>D</button><button>E</button><button>F</button>
+    <button>G</button><button>H</button><button>I</button>
+    <button>J</button><button>K</button><button>L</button>
+    <button>M</button>
+  </div>
+
+  <!-- LETTERS: RIJ 2 -->
+  <div class="keygroup letters">
+    <button>N</button><button>O</button><button>P</button>
+    <button>Q</button><button>R</button><button>S</button>
+    <button>T</button><button>U</button><button>V</button>
+    <button>W</button><button>X</button><button>Y</button>
+    <button>Z</button>
+  </div>
+
+  <!-- CIJFERS: APARTE RIJ -->
+  <div class="keygroup digits">
+    <button>1</button><button>2</button><button>3</button>
+    <button>4</button><button>5</button><button>6</button>
+    <button>7</button><button>8</button><button>9</button>
+    <button>0</button>
+  </div>
+
+  <!-- SPATIE -->
+  <div class="space-key">
+    <button>Spatie</button>
+  </div>
+
+</div>
   </div>
 
   <div class="actions">
     <button class="primary" onclick="speak()">Spreek</button>
     <button class="gray" onclick="backspace()">Wis 1 letter</button>
     <button class="gray" onclick="clearText()">Wis alles</button>
-    <button onclick="goManage()">Beheer</button>
-    <button onclick="goProfiles()">Profielen</button>
   </div>
 </div>
 
@@ -314,9 +446,44 @@ function addText(t){ text += t; updateDisplay(); }
 function backspace(){ text = text.slice(0,-1); updateDisplay(); }
 function clearText(){ text=""; updateDisplay(); }
 function speak(){
-  if(!text) return;
+  if (!text) return;
+
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "nl-NL";
+  utter.rate = 0.9;   // iets trager = rustiger bij ALS/dementie
+  utter.pitch = 1.1;  // iets hoger = vrouwelijker, vriendelijker
+
+  const voice = getFemaleDutchVoice();
+  if (voice) utter.voice = voice;
+
   speechSynthesis.cancel();
-  speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+  speechSynthesis.speak(utter);
+}
+
+function getFemaleDutchVoice() {
+  const voices = speechSynthesis.getVoices();
+
+  if (!voices || voices.length === 0) return null;
+
+  // 1️⃣ Eerst: Nederlandse vrouwenstemmen
+  let femaleDutch = voices.filter(v =>
+    v.lang.startsWith("nl") &&
+    /female|vrouw|eva|claire|ellen|fem|dutch/i.test(v.name)
+  );
+  if (femaleDutch.length) return femaleDutch[0];
+
+  // 2️⃣ Dan: eender welke Nederlandse stem
+  let anyDutch = voices.filter(v => v.lang.startsWith("nl"));
+  if (anyDutch.length) return anyDutch[0];
+
+  // 3️⃣ Dan: eender welke vrouwenstem
+  let anyFemale = voices.filter(v =>
+    /female|vrouw|eva|claire|ellen|fem/i.test(v.name)
+  );
+  if (anyFemale.length) return anyFemale[0];
+
+  // 4️⃣ Fallback: eerste beschikbare stem
+  return voices[0];
 }
 
 /* ================= WOORDEN ================= */
@@ -418,6 +585,20 @@ document.querySelectorAll(".keyboard button").forEach(btn => {
   }
 });
 
+
+/* ================= HOOG-CONTRAST TOGGLE ================= */
+
+let highContrastEnabled = false;
+
+function toggleHighContrast() {
+  highContrastEnabled = !highContrastEnabled;
+  document.body.classList.toggle("high-contrast", highContrastEnabled);
+}
+
+// Zorgt dat stemmen beschikbaar zijn vóór eerste spreekactie
+speechSynthesis.onvoiceschanged = () => {
+  getFemaleDutchVoice();
+};
 </script>
 
 </body>
