@@ -329,14 +329,30 @@ body.high-contrast .keygroup.digits {
 .toilet { background: #64b5f6; }
 .familie { background: #9575cd; }
 .moe { background: #ffb74d; }
-.ja { background: #00ff00; }
-.nee { background: #A60827; }
+.ja { background: #1CC7B0; }
+.nee { background: #C71C31; }
 
 .sub { background: #546e7a; }
 
 .back {
   grid-column: span 2;
   background: #455a64;
+}
+
+/* ===== SCHERM VERGRENDELING ===== */
+
+body.locked {
+  overflow: hidden;            /* voorkomt scroll */
+  touch-action: none;          /* voorkomt gestures */
+}
+
+body.locked * {
+  pointer-events: none;        /* blokkeert alle interactie */
+}
+
+/* Behalve het element dat wordt vastgehouden */
+body.locked .holding {
+  pointer-events: auto;
 }
 
 </style>
@@ -430,13 +446,13 @@ body.high-contrast .keygroup.digits {
   <div class="title">Wat heb je nodig?</div>
 
   <div class="grid">
+    <button class="tile ja" onclick="speak('ja')">Ja</button>
+    <button class="tile nee" onclick="speak('nee')">Nee</button>
     <button class="tile pijn" onclick="openZorgScreen('zorg-pijn')">Pijn</button>
     <button class="tile eten" onclick="openZorgScreen('zorg-voeding')">Eten / Drinken</button>
     <button class="tile toilet" onclick="speak('Ik moet naar het toilet')">Toilet</button>
     <button class="tile moe" onclick="speak('Ik ben moe')">Moe</button>
     <button class="tile familie" onclick="openZorgScreen('zorg-familie')">Familie</button>
-    <button class="tile ja" onclick="speak('ja')">Ja</button>
-    <button class="tile nee" onclick="speak('nee')">Nee</button>
   </div>
 
 </div>
@@ -622,20 +638,25 @@ function setupHold(button, action){
   let timer=null;
   let fired=false;
 
-  const start = e=>{
-    e.preventDefault();
-    fired=false;
-    button.classList.add("holding");
-    timer=setTimeout(()=>{
-      fired=true;
-      button.classList.remove("holding");
-      action();
-    }, HOLD_TIME);
-  };
-  const cancel = ()=>{
-    clearTimeout(timer);
+  const start = e => {
+  e.preventDefault();
+  fired = false;
+  lockScreen();                 // 🔒 HIER
+  button.classList.add("holding");
+
+  timer = setTimeout(() => {
+    fired = true;
     button.classList.remove("holding");
-  };
+    action();
+    unlockScreen();             // 🔓 na actie
+  }, HOLD_TIME);
+};
+
+const cancel = () => {
+  clearTimeout(timer);
+  button.classList.remove("holding");
+  unlockScreen();               // 🔓 vinger los
+};
 
   button.addEventListener("mousedown", start);
   button.addEventListener("mouseup", cancel);
@@ -702,6 +723,19 @@ function goZorg() {
 
 function openZorgScreen(id) {
   showScreen(id);
+}
+
+let screenLocked = false;
+
+function lockScreen() {
+  if (screenLocked) return;
+  screenLocked = true;
+  document.body.classList.add("locked");
+}
+
+function unlockScreen() {
+  screenLocked = false;
+  document.body.classList.remove("locked");
 }
 </script>
 
