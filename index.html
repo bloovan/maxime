@@ -13,14 +13,6 @@ html, body {
   background: #f4f6f8;
 }
 
-#screen-lock-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: transparent;
-  pointer-events: auto;   /* vangt clicks */
-}
-
 button {
   font-size: 18px;
   padding: 10px;
@@ -367,7 +359,6 @@ body.locked .holding {
 </head>
 
 <body>
-<div id="screen-lock-overlay" style="display:none;"></div>
 
 <div id="top-controls">
   <button onclick="toggleHighContrast()">Hoog contrast</button>
@@ -647,25 +638,24 @@ function setupHold(button, action){
   let timer=null;
   let fired=false;
 
-const start = e => {
+  const start = e => {
   e.preventDefault();
   fired = false;
-
-  lockScreen();
+  lockScreen();                 // 🔒 HIER
   button.classList.add("holding");
 
   timer = setTimeout(() => {
     fired = true;
     button.classList.remove("holding");
     action();
-    unlockScreen();
+    unlockScreen();             // 🔓 na actie
   }, HOLD_TIME);
 };
 
 const cancel = () => {
   clearTimeout(timer);
   button.classList.remove("holding");
-  unlockScreen();
+  unlockScreen();               // 🔓 vinger los
 };
 
   button.addEventListener("mousedown", start);
@@ -738,20 +728,15 @@ function openZorgScreen(id) {
 let screenLocked = false;
 
 function lockScreen() {
-  const o = document.getElementById("screen-lock-overlay");
-  if (!o) return;
-  o.style.display = "block";
-
-  // FAILSAFE: nooit langer dan 1.5s geblokkeerd
-  setTimeout(unlockScreen, 1500);
+  if (screenLocked) return;
+  screenLocked = true;
+  document.body.classList.add("locked");
 }
 
 function unlockScreen() {
-  const o = document.getElementById("screen-lock-overlay");
-  if (!o) return;
-  o.style.display = "none";
+  screenLocked = false;
+  document.body.classList.remove("locked");
 }
-
 </script>
 
 </body>
