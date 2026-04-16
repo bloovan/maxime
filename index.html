@@ -299,15 +299,58 @@ body.high-contrast .keygroup.digits {
   border-top: 2px solid #fff;
 }
 
+/* ===== ZORG COMMUNICATIE ===== */
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  height: calc(100% - 80px);
+}
+
+.tile {
+  font-size: 26px;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  padding: 30px;
+  cursor: pointer;
+  color: white;
+}
+
+.pijn { background: #e57373; }
+.eten { background: #81c784; }
+.toilet { background: #64b5f6; }
+.familie { background: #9575cd; }
+.moe { background: #ffb74d; }
+.ja { background: #00ff00; }
+.nee { background: #A60827; }
+
+.sub { background: #546e7a; }
+
+.back {
+  grid-column: span 2;
+  background: #455a64;
+}
+
 </style>
 </head>
 
 <body>
+
 <div id="top-controls">
   <button onclick="toggleHighContrast()">Hoog contrast</button>
+  <button onclick="goZorg()">Zorg Communicatie</button>
   <button onclick="goManage()">Beheer</button>
   <button onclick="goProfiles()">Profielen</button>
 </div>
+
 
 <!-- PROFIELEN -->
 <div id="screen-profiles" class="screen">
@@ -381,6 +424,57 @@ body.high-contrast .keygroup.digits {
   </div>
 </div>
 
+<!-- ZORG COMMUNICATIE -->
+<div id="screen-zorg" class="screen">
+
+  <div class="title">Wat heb je nodig?</div>
+
+  <div class="grid">
+    <button class="tile pijn" onclick="openZorgScreen('zorg-pijn')">Pijn</button>
+    <button class="tile eten" onclick="openZorgScreen('zorg-voeding')">Eten / Drinken</button>
+    <button class="tile toilet" onclick="speak('Ik moet naar het toilet')">Toilet</button>
+    <button class="tile moe" onclick="speak('Ik ben moe')">Moe</button>
+    <button class="tile familie" onclick="openZorgScreen('zorg-familie')">Familie</button>
+    <button class="tile ja" onclick="speak('ja')">Ja</button>
+    <button class="tile nee" onclick="speak('nee')">Nee</button>
+  </div>
+
+</div>
+
+<div id="zorg-pijn" class="screen">
+  <div class="title">Waar heb je pijn?</div>
+  <div class="grid">
+    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn hoofd')">Hoofd</button>
+    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn buik')">Buik</button>
+    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn benen')">Benen</button>
+    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn rug')">Rug</button>
+    <button class="tile back" onclick="goZorg()">Terug</button>
+  </div>
+</div>
+
+<div id="zorg-familie" class="screen">
+  <div class="title">Wie komt er</div>
+  <div class="grid">
+    <button class="tile sub" onclick="speak('Mijn zoon komt')">Zoon</button>
+    <button class="tile sub" onclick="speak('Mijn broer komt')">Broer</button>
+    <button class="tile sub" onclick="speak('Mijn zus komt')">Zus</button>
+    <button class="tile back" onclick="goZorg()">Terug</button>
+  </div>
+</div>
+
+<div id="zorg-voeding" class="screen">
+  <div class="title">Wat wil je eten of drinken</div>
+  <div class="grid">
+    <button class="tile sub" onclick="speak('Ik zou graag soep hebben')">Soep</button>
+    <button class="tile sub" onclick="speak('Ik zou graag warme chocomelk hebben')">Choco</button>
+    <button class="tile sub" onclick="speak('Ik zou graag een cola hebben')">Cola</button>
+    <button class="tile sub" onclick="speak('Ik zou graag een lekkere koffie drinken')">Koffie</button>
+    <button class="tile sub" onclick="speak('Ik zou graag een puddingske hebben')">Pudding</button>
+    <button class="tile sub" onclick="speak('Ik zou graag een koekje hebben')">Koek</button>
+    <button class="tile back" onclick="goZorg()">Terug</button>
+  </div>
+</div>
+
 <script>
 /* ================= DATA ================= */
 let profiles = [{ id: 1, name: "Eddy", phrases: ["Ik heb ", "Ik wil "] }];
@@ -445,13 +539,15 @@ function updateDisplay(){ display.textContent = text || "..."; }
 function addText(t){ text += t; updateDisplay(); }
 function backspace(){ text = text.slice(0,-1); updateDisplay(); }
 function clearText(){ text=""; updateDisplay(); }
-function speak(){
-  if (!text) return;
+function speak(spokenText = null) {
+  let toSpeak = spokenText ?? text;
 
-  const utter = new SpeechSynthesisUtterance(text);
+  if (!toSpeak) return;
+
+  const utter = new SpeechSynthesisUtterance(toSpeak);
   utter.lang = "nl-NL";
-  utter.rate = 0.9;   // iets trager = rustiger bij ALS/dementie
-  utter.pitch = 1.1;  // iets hoger = vrouwelijker, vriendelijker
+  utter.rate = 0.9;
+  utter.pitch = 1.1;
 
   const voice = getFemaleDutchVoice();
   if (voice) utter.voice = voice;
@@ -599,6 +695,14 @@ function toggleHighContrast() {
 speechSynthesis.onvoiceschanged = () => {
   getFemaleDutchVoice();
 };
+
+function goZorg() {
+  showScreen("screen-zorg");
+}
+
+function openZorgScreen(id) {
+  showScreen(id);
+}
 </script>
 
 </body>
