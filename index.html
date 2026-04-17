@@ -331,6 +331,7 @@ body.high-contrast .keygroup.digits {
 .moe { background: #ffb74d; }
 .ja { background: #1CC7B0; }
 .nee { background: #C71C31; }
+.muziek { background: #b5f633; }
 
 .sub { background: #546e7a; }
 
@@ -453,6 +454,7 @@ body.locked .holding {
     <button class="tile toilet" onclick="speak('Ik moet naar het toilet')">Toilet</button>
     <button class="tile moe" onclick="speak('Ik ben moe')">Moe</button>
     <button class="tile familie" onclick="openZorgScreen('zorg-familie')">Familie</button>
+    <button class="tile muziek" onclick="openZorgScreen('zorg-muziek')">Muziek</button>
   </div>
 
 </div>
@@ -464,6 +466,7 @@ body.locked .holding {
     <button class="tile sub" onclick="speak('Ik heb pijn aan mijn buik')">Buik</button>
     <button class="tile sub" onclick="speak('Ik heb pijn aan mijn benen')">Benen</button>
     <button class="tile sub" onclick="speak('Ik heb pijn aan mijn rug')">Rug</button>
+    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn handen')">Handen</button>
     <button class="tile back" onclick="goZorg()">Terug</button>
   </div>
 </div>
@@ -488,6 +491,15 @@ body.locked .holding {
     <button class="tile sub" onclick="speak('Ik zou graag een puddingske hebben')">Pudding</button>
     <button class="tile sub" onclick="speak('Ik zou graag een koekje hebben')">Koek</button>
     <button class="tile back" onclick="goZorg()">Terug</button>
+  </div>
+</div>
+
+<div id="zorg-muziek" class="screen">
+  <div class="title">Wat wil je horen</div>
+  <div class="grid">
+    <button class="tile sub" onclick="speak('Ik zou graag Christoff met Sweet Caroline horen')">Christoff Sweet Caroline</button>
+    <button class="tile sub" onclick="speak('Ik zou graag Neil Diamond met Sweet Caroline horen')">Neil Diamond Sweet Caroline</button>
+	<button class="tile back" onclick="goZorg()">Terug</button>
   </div>
 </div>
 
