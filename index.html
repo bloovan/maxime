@@ -356,6 +356,11 @@ body.locked .holding {
   pointer-events: auto;
 }
 
+/* Muziekknoppen altijd klikbaar */
+#zorg-muziek button {
+  pointer-events: auto !important;
+}
+
 </style>
 </head>
 
@@ -498,7 +503,15 @@ body.locked .holding {
   <div class="title">Wat wil je horen</div>
   <div class="grid">
     <button class="tile sub" onclick="speak('Ik zou graag Christoff met Sweet Caroline horen')">Christoff Sweet Caroline</button>
-    <button class="tile sub" onclick="speak('Ik zou graag Neil Diamond met Sweet Caroline horen')">Neil Diamond Sweet Caroline</button>
+	
+<button class="tile sub"
+  onclick="playLocalMusicIOS(
+    'Sweet Caroline - Neil Diamond',
+    'media/Sweet Caroline - Neil Diamond.mp3'
+  )">
+  Sweet Caroline
+</button>
+
 	<button class="tile back" onclick="goZorg()">Terug</button>
   </div>
 </div>
@@ -749,7 +762,46 @@ function unlockScreen() {
   screenLocked = false;
   document.body.classList.remove("locked");
 }
-</script>
 
+document.querySelectorAll('#zorg-muziek button[data-music]')
+  .forEach(btn => {
+    btn.addEventListener('click', () => {
+      playLocalMusic(
+        btn.textContent.trim(),
+        btn.dataset.music
+      );
+    });
+  });
+  
+  function playLocalMusic(title, file) {
+  const player = document.getElementById("audioPlayer");
+
+  if (!player) {
+    console.error("audioPlayer niet gevonden");
+    return;
+  }
+
+  console.log("Speel af:", title, file);
+
+  player.pause();
+  player.currentTime = 0;
+  player.src = file;
+
+  player.play().catch(err => {
+    console.error("Audio play error:", err);
+  });
+}
+
+function playLocalMusicIOS(title, file) {
+  const player = document.getElementById("audioPlayer");
+
+  player.src = file;
+  player.load();          // ✅ verplicht voor iOS
+  player.play();          // ✅ direct user action
+
+  console.log("iOS play gestart:", title);
+}
+</script>
+<audio id="audioPlayer" preload="auto"></audio>
 </body>
 </html>
