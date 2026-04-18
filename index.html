@@ -503,9 +503,15 @@ body.locked .holding {
   <div class="title">Wat wil je horen</div>
   <div class="grid">
     <button class="tile sub" onclick="speak('Ik zou graag Christoff met Sweet Caroline horen')">Christoff Sweet Caroline</button>
-	<button class="tile sub" data-music="media/Sweet Caroline - Neil Diamond.mp3">
-	Sweet Caroline - Neil Diamond
-	</button>
+	
+<button class="tile sub"
+  onclick="playLocalMusicIOS(
+    'Sweet Caroline',
+    'media/Sweet Caroline - Neil Diamond.mp3'
+  )">
+  Sweet Caroline
+</button>
+
 	<button class="tile back" onclick="goZorg()">Terug</button>
   </div>
 </div>
@@ -786,6 +792,15 @@ document.querySelectorAll('#zorg-muziek button[data-music]')
   });
 }
 
+function playLocalMusicIOS(title, file) {
+  const player = document.getElementById("audioPlayer");
+
+  player.src = file;
+  player.load();          // ✅ verplicht voor iOS
+  player.play();          // ✅ direct user action
+
+  console.log("iOS play gestart:", title);
+}
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
 </body>
