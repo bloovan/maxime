@@ -332,6 +332,10 @@ body.high-contrast .keygroup.digits {
 .ja { background: #1CC7B0; }
 .nee { background: #C71C31; }
 .muziek { background: #b5f633; }
+.emoties { background: #fdd7b2; }
+.temperatuur { background: #8a4572; }
+.tv { background: #9c857d; }
+.grappig { background: #ffc0cb; }
 
 .sub { background: #546e7a; }
 
@@ -367,10 +371,10 @@ body.locked .holding {
 <body>
 
 <div id="top-controls">
-  <button onclick="toggleHighContrast()">Hoog contrast</button>
   <button onclick="goZorg()">Zorg Communicatie</button>
-  <button onclick="goManage()">Beheer</button>
   <button onclick="goProfiles()">Profielen</button>
+  <button onclick="goManage()">Beheer</button>
+  <button onclick="toggleHighContrast()">Hoog contrast</button>
 </div>
 
 
@@ -460,6 +464,10 @@ body.locked .holding {
     <button class="tile moe" onclick="speak('Ik ben moe')">Moe</button>
     <button class="tile familie" onclick="openZorgScreen('zorg-familie')">Familie</button>
     <button class="tile muziek" onclick="openZorgScreen('zorg-muziek')">Muziek</button>
+    <button class="tile emoties" onclick="openZorgScreen('zorg-emoties')">Emoties</button>
+    <button class="tile temperatuur" onclick="openZorgScreen('zorg-temperatuur')">Warm/Koud</button>
+    <button class="tile tv" onclick="openZorgScreen('zorg-tv')">TV</button>
+    <button class="tile grappig" onclick="openZorgScreen('zorg-grappig')">Grappig</button>
   </div>
 
 </div>
@@ -467,8 +475,8 @@ body.locked .holding {
 <div id="zorg-pijn" class="screen">
   <div class="title">Waar heb je pijn?</div>
   <div class="grid">
-    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn hoofd')">Hoofd</button>
-    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn buik')">Buik</button>
+    <button class="tile sub" onclick="speak('Ik heb hoofdpijn')">Hoofd</button>
+    <button class="tile sub" onclick="speak('Ik heb buikpijn')">Buik</button>
     <button class="tile sub" onclick="speak('Ik heb pijn aan mijn benen')">Benen</button>
     <button class="tile sub" onclick="speak('Ik heb pijn aan mijn rug')">Rug</button>
     <button class="tile sub" onclick="speak('Ik heb pijn aan mijn handen')">Handen</button>
@@ -477,7 +485,7 @@ body.locked .holding {
 </div>
 
 <div id="zorg-familie" class="screen">
-  <div class="title">Wie komt er</div>
+  <div class="title">Wie komt er?</div>
   <div class="grid">
     <button class="tile sub" onclick="speak('Mijn zoon komt')">Zoon</button>
     <button class="tile sub" onclick="speak('Mijn broer komt')">Broer</button>
@@ -487,7 +495,7 @@ body.locked .holding {
 </div>
 
 <div id="zorg-voeding" class="screen">
-  <div class="title">Wat wil je eten of drinken</div>
+  <div class="title">Wat wil je eten of drinken?</div>
   <div class="grid">
     <button class="tile sub" onclick="speak('Ik zou graag soep hebben')">Soep</button>
     <button class="tile sub" onclick="speak('Ik zou graag warme chocomelk hebben')">Choco</button>
@@ -500,7 +508,7 @@ body.locked .holding {
 </div>
 
 <div id="zorg-muziek" class="screen">
-  <div class="title">Wat wil je horen</div>
+  <div class="title">Naar welk liedje wil je luisteren?</div>
   <div class="grid">	
 <button class="tile sub"
   onclick="playLocalMusicIOS(
@@ -509,11 +517,65 @@ body.locked .holding {
   )">
   Sweet Caroline - Neil Diamond
 </button>
-<button class="tile sub" onclick="speak('Ik zou graag Christoff met Sweet Caroline horen')">Christoff Sweet Caroline</button>
+<button class="tile sub"
+  onclick="playLocalMusicIOS(
+    'Sweet Caroline - Christoff',
+    'media/Sweet Caroline - Christoff.mp3'
+  )">
+  Sweet Caroline - Christoff
+</button>
 	<button class="tile back" onclick="goZorg()">Terug</button>
   </div>
 </div>
 
+<div id="zorg-emoties" class="screen">
+  <div class="title">Hoe voel ik me?</div>
+  <div class="grid">
+    <button class="tile sub" onclick="speak('Ik ben blij')">Blij</button>
+    <button class="tile sub" onclick="speak('Ik voel me heel goed vandaag')">Goed vandaag</button>
+    <button class="tile sub" onclick="speak('Ik ben trots')">Trots</button>
+    <button class="tile sub" onclick="speak('Ik ben verrast')">Verrast</button>
+    <button class="tile sub" onclick="speak('Ik ben verdrietig')">Verdrietig</button>
+    <button class="tile sub" onclick="speak('Ik ben boos')">Boos</button>
+    <button class="tile sub" onclick="speak('Ik ben bang')">Bang</button>
+    <button class="tile sub" onclick="speak('Ik heb weeral slecht geslapen')">Slecht geslapen</button>
+    <button class="tile back" onclick="goZorg()">Terug</button>
+  </div>
+</div>
+
+<div id="zorg-temperatuur" class="screen">
+  <div class="title">Heb je koud of warm?</div>
+  <div class="grid">
+    <button class="tile sub" onclick="speak('Ik heb het warm')">Warm</button>
+    <button class="tile sub" onclick="speak('Ik heb het koud')">Koud</button>
+    <button class="tile sub" onclick="speak('Ik zweet heel erg')">Zweet</button>
+    <button class="tile back" onclick="goZorg()">Terug</button>
+  </div>
+</div>
+
+<div id="zorg-tv" class="screen">
+  <div class="title">Naar wat wil je kijken?</div>
+  <div class="grid">
+    <button class="tile sub" onclick="speak('Ik wil Blokken op VRT1 zien')">Blokken</button>
+    <button class="tile sub" onclick="speak('Ik zou graag naar Ment TV kijken')">Ment TV (83)</button>
+    <button class="tile sub" onclick="speak('Ik zou graag naar Xite kijken')">Xite</button>
+    <button class="tile back" onclick="goZorg()">Terug</button>
+  </div>
+</div>
+
+<div id="zorg-grappig" class="screen">
+  <div class="title">Heel grappig!</div>
+  <div class="grid">
+    <button class="tile sub"
+  onclick="playLocalMusicIOS(
+    'Niezen',
+    'media/SNEEZE - Sound Effect.mp3'
+  )">
+  Niezen
+</button>
+    <button class="tile back" onclick="goZorg()">Terug</button>
+  </div>
+</div>
 <script>
 /* ================= DATA ================= */
 let profiles = [{ id: 1, name: "Eddy", phrases: ["Ik heb ", "Ik wil "] }];
