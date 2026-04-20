@@ -372,7 +372,7 @@ body.locked .holding {
 
 <div id="top-controls">
   <button onclick="goZorg()">Zorg Communicatie</button>
-  <button onclick="goProfiles()">Profielen</button>
+  <button onclick="goProfiles()">Bewoners</button>
   <button onclick="goManage()">Beheer</button>
   <button onclick="toggleHighContrast()">Hoog contrast</button>
 </div>
@@ -380,9 +380,9 @@ body.locked .holding {
 
 <!-- PROFIELEN -->
 <div id="screen-profiles" class="screen">
-  <div class="profile-title">Kies profiel</div>
+  <div class="profile-title">Kies bewoner</div>
   <div id="profileGrid" class="profile-grid"></div>
-  <button class="profile-add" onclick="addProfile()">Nieuw profiel</button>
+  <button class="profile-add" onclick="addProfile()">Nieuw bewonersprofiel</button>
 </div>
 
 <!-- MAIN -->
@@ -438,7 +438,7 @@ body.locked .holding {
 <!-- BEHEER -->
 <div id="screen-manage" class="screen">
   <div style="padding:20px;">
-    <h2>Beheer profiel: <span id="manageProfileName"></span></h2>
+    <h2>Beheer bewonersprofiel: <span id="manageProfileName"></span></h2>
     <button class="primary" onclick="addPhrase()">+ Vast woord</button>
     <br><br>
     <select id="phraseSelect" style="width:100%; font-size:18px; padding:10px;"></select>
@@ -446,7 +446,7 @@ body.locked .holding {
     <button class="gray" onclick="removeSelectedPhrase()">Verwijder woord</button>
     <br><br><hr><br>
     <button onclick="goMain()">Terug</button>
-    <button onclick="goProfiles()">Profielen</button>
+    <button onclick="goProfiles()">Bewoners</button>
   </div>
 </div>
 
@@ -617,7 +617,7 @@ function renderProfiles(){
   });
 }
 function addProfile(){
-  const n=prompt("Naam profiel:");
+  const n=prompt("Naam bewoner:");
   if(!n) return;
   profiles.push({id:Date.now(), name:n, phrases:[]});
   renderProfiles();
