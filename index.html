@@ -456,110 +456,113 @@ body.locked .holding {
   <div class="title">Wat heb je nodig?</div>
 
   <div class="grid">
-    <button class="tile ja" onclick="speak('ja')">Ja</button>
-    <button class="tile nee" onclick="speak('nee')">Nee</button>
-    <button class="tile pijn" onclick="openZorgScreen('zorg-pijn')">Pijn</button>
-    <button class="tile eten" onclick="openZorgScreen('zorg-voeding')">Eten / Drinken</button>
-    <button class="tile toilet" onclick="speak('Ik moet naar het toilet')">Toilet</button>
-    <button class="tile moe" onclick="speak('Ik ben moe')">Moe</button>
-    <button class="tile familie" onclick="openZorgScreen('zorg-familie')">Familie</button>
-    <button class="tile muziek" onclick="openZorgScreen('zorg-muziek')">Muziek</button>
-    <button class="tile emoties" onclick="openZorgScreen('zorg-emoties')">Emoties</button>
-    <button class="tile temperatuur" onclick="openZorgScreen('zorg-temperatuur')">Warm/Koud</button>
-    <button class="tile tv" onclick="openZorgScreen('zorg-tv')">TV</button>
-    <button class="tile grappig" onclick="openZorgScreen('zorg-grappig')">Grappig</button>
-  </div>
 
+    <button class="tile ja" onclick="speak('ja')">✅<br>Ja</button>
+    <button class="tile nee" onclick="speak('nee')">❌<br>Nee</button>
+
+    <button class="tile pijn" onclick="openZorgScreen('zorg-pijn')">🤕<br>Pijn</button>
+    <button class="tile eten" onclick="openZorgScreen('zorg-voeding')">🍽️<br>Eten / Drinken</button>
+
+    <button class="tile toilet" onclick="speak('Ik moet naar het toilet')">🚽<br>Toilet</button>
+    <button class="tile moe" onclick="speak('Ik ben moe')">😴<br>Moe</button>
+
+    <button class="tile familie" onclick="openZorgScreen('zorg-familie')">👨‍👩‍👧<br>Familie</button>
+    <button class="tile muziek" onclick="openZorgScreen('zorg-muziek')">🎵<br>Muziek</button>
+
+    <button class="tile emoties" onclick="openZorgScreen('zorg-emoties')">😊<br>Emoties</button>
+    <button class="tile temperatuur" onclick="openZorgScreen('zorg-temperatuur')">🌡️<br>Warm / Koud</button>
+
+    <button class="tile tv" onclick="openZorgScreen('zorg-tv')">📺<br>TV</button>
+    <button class="tile grappig" onclick="openZorgScreen('zorg-grappig')">😂<br>Grappig</button>
+
+  </div>
 </div>
 
 <div id="zorg-pijn" class="screen">
   <div class="title">Waar heb je pijn?</div>
   <div class="grid">
-    <button class="tile sub" onclick="speak('Ik heb hoofdpijn')">Hoofd</button>
-    <button class="tile sub" onclick="speak('Ik heb buikpijn')">Buik</button>
-    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn benen')">Benen</button>
-    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn rug')">Rug</button>
-    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn handen')">Handen</button>
-    <button class="tile back" onclick="goZorg()">Terug</button>
+    <button class="tile sub" onclick="speak('Ik heb hoofdpijn')">🤕<br>Hoofd</button>
+    <button class="tile sub" onclick="speak('Ik heb buikpijn')">🤢<br>Buik</button>
+    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn benen')">🦵<br>Benen</button>
+    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn rug')">⚡<br>Rug</button>
+    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn handen')">✋<br>Handen</button>
+    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
   </div>
 </div>
 
 <div id="zorg-familie" class="screen">
   <div class="title">Wie komt er?</div>
   <div class="grid">
-    <button class="tile sub" onclick="speak('Mijn zoon komt')">Zoon</button>
-    <button class="tile sub" onclick="speak('Mijn broer komt')">Broer</button>
-    <button class="tile sub" onclick="speak('Mijn zus komt')">Zus</button>
-    <button class="tile back" onclick="goZorg()">Terug</button>
+    <button class="tile sub" onclick="speak('Mijn zoon komt')">👦<br>Zoon</button>
+    <button class="tile sub" onclick="speak('Mijn broer komt')">👨<br>Broer</button>
+    <button class="tile sub" onclick="speak('Mijn zus komt')">👩<br>Zus</button>
+    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
   </div>
 </div>
 
 <div id="zorg-voeding" class="screen">
   <div class="title">Wat wil je eten of drinken?</div>
   <div class="grid">
-    <button class="tile sub" onclick="speak('Ik zou graag soep hebben')">Soep</button>
-    <button class="tile sub" onclick="speak('Ik zou graag warme chocomelk hebben')">Choco</button>
-    <button class="tile sub" onclick="speak('Ik zou graag een cola hebben')">Cola</button>
-    <button class="tile sub" onclick="speak('Ik zou graag een lekkere koffie drinken')">Koffie</button>
-    <button class="tile sub" onclick="speak('Ik zou graag een puddingske hebben')">Pudding</button>
-    <button class="tile sub" onclick="speak('Ik zou graag een koekje hebben')">Koek</button>
-    <button class="tile back" onclick="goZorg()">Terug</button>
+    <button class="tile sub" onclick="speak('Ik zou graag soep hebben')">🥣<br>Soep</button>
+    <button class="tile sub" onclick="speak('Ik zou graag warme chocomelk hebben')">🍫☕<br>Choco</button>
+    <button class="tile sub" onclick="speak('Ik zou graag een cola hebben')">🥤<br>Cola</button>
+    <button class="tile sub" onclick="speak('Ik zou graag een lekkere koffie drinken')">☕<br>Koffie</button>
+    <button class="tile sub" onclick="speak('Ik zou graag een puddingske hebben')">🍮<br>Pudding</button>
+    <button class="tile sub" onclick="speak('Ik zou graag een koekje hebben')">🍪<br>Koek</button>
+    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
   </div>
 </div>
 
 <div id="zorg-muziek" class="screen">
   <div class="title">Naar welk liedje wil je luisteren?</div>
-  <div class="grid">	
-<button class="tile sub"
-  onclick="playLocalMusicIOS(
-    'Sweet Caroline - Neil Diamond',
-    'media/Sweet Caroline - Neil Diamond.mp3'
-  )">
-  Sweet Caroline - Neil Diamond
-</button>
-<button class="tile sub"
-  onclick="playLocalMusicIOS(
-    'Sweet Caroline - Christoff',
-    'media/Sweet Caroline - Christoff.mp3'
-  )">
-  Sweet Caroline - Christoff
-</button>
-	<button class="tile back" onclick="goZorg()">Terug</button>
+  <div class="grid">
+    <button class="tile sub"
+      onclick="playLocalMusicIOS(
+        'Sweet Caroline - Neil Diamond',
+        'media/Sweet Caroline - Neil Diamond.mp3'
+      )">🎵<br>Sweet Caroline</button>
+
+    <button class="tile sub"
+      onclick="playLocalMusicIOS(
+        'Sweet Caroline - Christoff',
+        'media/Sweet Caroline - Christoff.mp3'
+      )">🎶<br>Christoff</button>
+    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
   </div>
 </div>
 
 <div id="zorg-emoties" class="screen">
-  <div class="title">Hoe voel ik me?</div>
+  <div class="title">Hoe voel je je?</div>
   <div class="grid">
-    <button class="tile sub" onclick="speak('Ik ben blij')">Blij</button>
-    <button class="tile sub" onclick="speak('Ik voel me heel goed vandaag')">Goed vandaag</button>
-    <button class="tile sub" onclick="speak('Ik ben trots')">Trots</button>
-    <button class="tile sub" onclick="speak('Ik ben verrast')">Verrast</button>
-    <button class="tile sub" onclick="speak('Ik ben verdrietig')">Verdrietig</button>
-    <button class="tile sub" onclick="speak('Ik ben boos')">Boos</button>
-    <button class="tile sub" onclick="speak('Ik ben bang')">Bang</button>
-    <button class="tile sub" onclick="speak('Ik heb weeral slecht geslapen')">Slecht geslapen</button>
-    <button class="tile back" onclick="goZorg()">Terug</button>
+    <button class="tile sub" onclick="speak('Ik ben blij')">😊<br>Blij</button>
+    <button class="tile sub" onclick="speak('Ik voel me goed vandaag')">😌<br>Goed vandaag</button>
+    <button class="tile sub" onclick="speak('Ik ben trots')">😌✨<br>Trots</button>
+    <button class="tile sub" onclick="speak('Ik ben verrast')">😲<br>Verrast</button>
+    <button class="tile sub" onclick="speak('Ik ben verdrietig')">😢<br>Verdrietig</button>
+    <button class="tile sub" onclick="speak('Ik ben boos')">😠<br>Boos</button>
+    <button class="tile sub" onclick="speak('Ik ben bang')">😨<br>Bang</button>
+    <button class="tile sub" onclick="speak('Ik heb slecht geslapen')">😫<br>Slecht geslapen</button>
+    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
   </div>
 </div>
 
 <div id="zorg-temperatuur" class="screen">
-  <div class="title">Heb je koud of warm?</div>
+  <div class="title">Heb je het warm of koud?</div>
   <div class="grid">
-    <button class="tile sub" onclick="speak('Ik heb het warm')">Warm</button>
-    <button class="tile sub" onclick="speak('Ik heb het koud')">Koud</button>
-    <button class="tile sub" onclick="speak('Ik zweet heel erg')">Zweet</button>
-    <button class="tile back" onclick="goZorg()">Terug</button>
+    <button class="tile sub" onclick="speak('Ik heb het warm')">🥵<br>Warm</button>
+    <button class="tile sub" onclick="speak('Ik heb het koud')">🥶<br>Koud</button>
+    <button class="tile sub" onclick="speak('Ik zweet heel erg')">💦<br>Zweet</button>
+    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
   </div>
 </div>
 
 <div id="zorg-tv" class="screen">
   <div class="title">Naar wat wil je kijken?</div>
   <div class="grid">
-    <button class="tile sub" onclick="speak('Ik wil Blokken op VRT1 zien')">Blokken</button>
-    <button class="tile sub" onclick="speak('Ik zou graag naar Ment TV kijken')">Ment TV (83)</button>
-    <button class="tile sub" onclick="speak('Ik zou graag naar Xite kijken')">Xite</button>
-    <button class="tile back" onclick="goZorg()">Terug</button>
+    <button class="tile sub" onclick="speak('Ik wil Blokken op VRT1 zien')">📺<br>Blokken</button>
+    <button class="tile sub" onclick="speak('Ik wil naar Ment TV kijken')">🎶<br>Ment TV</button>
+    <button class="tile sub" onclick="speak('Ik wil naar Xite kijken')">🎧<br>Xite</button>
+    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
   </div>
 </div>
 
@@ -567,15 +570,14 @@ body.locked .holding {
   <div class="title">Heel grappig!</div>
   <div class="grid">
     <button class="tile sub"
-  onclick="playLocalMusicIOS(
-    'Niezen',
-    'media/SNEEZE - Sound Effect.mp3'
-  )">
-  Niezen
-</button>
-    <button class="tile back" onclick="goZorg()">Terug</button>
+      onclick="playLocalMusicIOS(
+        'Niezen',
+        'media/SNEEZE - Sound Effect.mp3'
+      )">🤧<br>Niezen</button>
+    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
   </div>
 </div>
+
 <script>
 /* ================= DATA ================= */
 let profiles = [{ id: 1, name: "Eddy", phrases: ["Ik heb ", "Ik wil "] }];
