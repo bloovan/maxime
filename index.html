@@ -452,133 +452,52 @@ body.locked .holding {
 
 <!-- ZORG COMMUNICATIE -->
 <div id="screen-zorg" class="screen">
-
   <div class="title">Wat heb je nodig?</div>
-
-  <div class="grid">
-
-    <button class="tile ja" onclick="speak('ja')">✅<br>Ja</button>
-    <button class="tile nee" onclick="speak('nee')">❌<br>Nee</button>
-
-    <button class="tile pijn" onclick="openZorgScreen('zorg-pijn')">🤕<br>Pijn</button>
-    <button class="tile eten" onclick="openZorgScreen('zorg-voeding')">🍽️<br>Eten / Drinken</button>
-
-    <button class="tile toilet" onclick="speak('Ik moet naar het toilet')">🚽<br>Toilet</button>
-    <button class="tile moe" onclick="speak('Ik ben moe')">😴<br>Moe</button>
-
-    <button class="tile familie" onclick="openZorgScreen('zorg-familie')">👨‍👩‍👧<br>Familie</button>
-    <button class="tile muziek" onclick="openZorgScreen('zorg-muziek')">🎵<br>Muziek</button>
-
-    <button class="tile emoties" onclick="openZorgScreen('zorg-emoties')">😊<br>Emoties</button>
-    <button class="tile temperatuur" onclick="openZorgScreen('zorg-temperatuur')">🌡️<br>Warm / Koud</button>
-
-    <button class="tile tv" onclick="openZorgScreen('zorg-tv')">📺<br>TV</button>
-    <button class="tile grappig" onclick="openZorgScreen('zorg-grappig')">😂<br>Grappig</button>
-
-  </div>
+  <div class="grid" id="zorg-hoofd-grid"></div>
 </div>
 
 <div id="zorg-pijn" class="screen">
   <div class="title">Waar heb je pijn?</div>
-  <div class="grid">
-    <button class="tile sub" onclick="speak('Ik heb hoofdpijn')">🤕<br>Hoofd</button>
-    <button class="tile sub" onclick="speak('Ik heb buikpijn')">🤢<br>Buik</button>
-    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn benen')">🦵<br>Benen</button>
-    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn rug')">⚡<br>Rug</button>
-    <button class="tile sub" onclick="speak('Ik heb pijn aan mijn handen')">✋<br>Handen</button>
-    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
-  </div>
-</div>
-
-<div id="zorg-familie" class="screen">
-  <div class="title">Wie komt er?</div>
-  <div class="grid">
-    <button class="tile sub" onclick="speak('Mijn zoon komt')">👦<br>Zoon</button>
-    <button class="tile sub" onclick="speak('Mijn broer komt')">👨<br>Broer</button>
-    <button class="tile sub" onclick="speak('Mijn zus komt')">👩<br>Zus</button>
-    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
-  </div>
+  <div class="grid" id="zorg-pijn-grid"></div>
 </div>
 
 <div id="zorg-voeding" class="screen">
   <div class="title">Wat wil je eten of drinken?</div>
-  <div class="grid">
-    <button class="tile sub" onclick="speak('Ik zou graag soep hebben')">🥣<br>Soep</button>
-    <button class="tile sub" onclick="speak('Ik zou graag warme chocomelk hebben')">🍫☕<br>Choco</button>
-    <button class="tile sub" onclick="speak('Ik zou graag een cola hebben')">🥤<br>Cola</button>
-    <button class="tile sub" onclick="speak('Ik zou graag een lekkere koffie drinken')">☕<br>Koffie</button>
-    <button class="tile sub" onclick="speak('Ik zou graag een puddingske hebben')">🍮<br>Pudding</button>
-    <button class="tile sub" onclick="speak('Ik zou graag een koekje hebben')">🍪<br>Koek</button>
-    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
-  </div>
+  <div class="grid" id="zorg-voeding-grid"></div>
+</div>
+
+<div id="zorg-familie" class="screen">
+  <div class="title">Wie komt er?</div>
+  <div class="grid" id="zorg-familie-grid"></div>
 </div>
 
 <div id="zorg-muziek" class="screen">
   <div class="title">Naar welk liedje wil je luisteren?</div>
-  <div class="grid">
-    <button class="tile sub"
-      onclick="playLocalMusicIOS(
-        'Sweet Caroline - Neil Diamond',
-        'media/Sweet Caroline - Neil Diamond.mp3'
-      )">🎵<br>Sweet Caroline</button>
-
-    <button class="tile sub"
-      onclick="playLocalMusicIOS(
-        'Sweet Caroline - Christoff',
-        'media/Sweet Caroline - Christoff.mp3'
-      )">🎶<br>Christoff</button>
-    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
-  </div>
+  <div class="grid" id="zorg-muziek-grid"></div>
 </div>
 
 <div id="zorg-emoties" class="screen">
   <div class="title">Hoe voel je je?</div>
-  <div class="grid">
-    <button class="tile sub" onclick="speak('Ik ben blij')">😊<br>Blij</button>
-    <button class="tile sub" onclick="speak('Ik voel me goed vandaag')">😌<br>Goed vandaag</button>
-    <button class="tile sub" onclick="speak('Ik ben trots')">😌✨<br>Trots</button>
-    <button class="tile sub" onclick="speak('Ik ben verrast')">😲<br>Verrast</button>
-    <button class="tile sub" onclick="speak('Ik ben verdrietig')">😢<br>Verdrietig</button>
-    <button class="tile sub" onclick="speak('Ik ben boos')">😠<br>Boos</button>
-    <button class="tile sub" onclick="speak('Ik ben bang')">😨<br>Bang</button>
-    <button class="tile sub" onclick="speak('Ik heb slecht geslapen')">😫<br>Slecht geslapen</button>
-    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
-  </div>
+  <div class="grid" id="zorg-emoties-grid"></div>
 </div>
 
 <div id="zorg-temperatuur" class="screen">
   <div class="title">Heb je het warm of koud?</div>
-  <div class="grid">
-    <button class="tile sub" onclick="speak('Ik heb het warm')">🥵<br>Warm</button>
-    <button class="tile sub" onclick="speak('Ik heb het koud')">🥶<br>Koud</button>
-    <button class="tile sub" onclick="speak('Ik zweet heel erg')">💦<br>Zweet</button>
-    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
-  </div>
+  <div class="grid" id="zorg-temperatuur-grid"></div>
 </div>
 
 <div id="zorg-tv" class="screen">
   <div class="title">Naar wat wil je kijken?</div>
-  <div class="grid">
-    <button class="tile sub" onclick="speak('Ik wil Blokken op VRT1 zien')">📺<br>Blokken</button>
-    <button class="tile sub" onclick="speak('Ik wil naar Ment TV kijken')">🎶<br>Ment TV</button>
-    <button class="tile sub" onclick="speak('Ik wil naar Xite kijken')">🎧<br>Xite</button>
-    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
-  </div>
+  <div class="grid" id="zorg-tv-grid"></div>
 </div>
 
 <div id="zorg-grappig" class="screen">
   <div class="title">Heel grappig!</div>
-  <div class="grid">
-    <button class="tile sub"
-      onclick="playLocalMusicIOS(
-        'Niezen',
-        'media/SNEEZE - Sound Effect.mp3'
-      )">🤧<br>Niezen</button>
-    <button class="tile back" onclick="goZorg()">⬅️<br>Terug</button>
-  </div>
+  <div class="grid" id="zorg-grappig-grid"></div>
 </div>
 
 <script>
+
 /* ================= DATA ================= */
 let profiles = [{ id: 1, name: "Eddy", phrases: ["Ik heb ", "Ik wil "] }];
 let activeProfile = null;
@@ -805,11 +724,49 @@ speechSynthesis.onvoiceschanged = () => {
 };
 
 function goZorg() {
-  showScreen("screen-zorg");
+  openZorgScreen("screen-zorg");
 }
 
 function openZorgScreen(id) {
   showScreen(id);
+
+  switch (id) {
+    case "screen-zorg":
+      renderZorgGrid("zorg-hoofd-grid", zorgData.hoofd, false);
+      break;
+
+    case "zorg-pijn":
+      renderZorgGrid("zorg-pijn-grid", zorgData.pijn);
+      break;
+
+    case "zorg-voeding":
+      renderZorgGrid("zorg-voeding-grid", zorgData.voeding);
+      break;
+
+    case "zorg-familie":
+      renderZorgGrid("zorg-familie-grid", zorgData.familie);
+      break;
+
+    case "zorg-muziek":
+      renderZorgGrid("zorg-muziek-grid", zorgData.muziek);
+      break;
+
+    case "zorg-emoties":
+      renderZorgGrid("zorg-emoties-grid", zorgData.emoties);
+      break;
+
+    case "zorg-temperatuur":
+      renderZorgGrid("zorg-temperatuur-grid", zorgData.temperatuur);
+      break;
+
+    case "zorg-tv":
+      renderZorgGrid("zorg-tv-grid", zorgData.tv);
+      break;
+
+    case "zorg-grappig":
+      renderZorgGrid("zorg-grappig-grid", zorgData.grappig);
+      break;
+  }
 }
 
 let screenLocked = false;
@@ -863,6 +820,111 @@ function playLocalMusicIOS(title, file) {
 
   console.log("iOS play gestart:", title);
 }
+
+const zorgData = {
+  hoofd: [
+    { emoji: "✅", label: "Ja", action: () => speak("ja") },
+    { emoji: "❌", label: "Nee", action: () => speak("nee") },
+    { emoji: "🤕", label: "Pijn", action: () => openZorgScreen("zorg-pijn") },
+    { emoji: "🍽️", label: "Eten / Drinken", action: () => openZorgScreen("zorg-voeding") },
+    { emoji: "🚽", label: "Toilet", action: () => speak("Ik moet naar het toilet") },
+    { emoji: "😴", label: "Moe", action: () => speak("Ik ben moe") },
+    { emoji: "👨‍👩‍👧", label: "Familie", action: () => openZorgScreen("zorg-familie") },
+    { emoji: "🎵", label: "Muziek", action: () => openZorgScreen("zorg-muziek") },
+    { emoji: "😊", label: "Emoties", action: () => openZorgScreen("zorg-emoties") },
+    { emoji: "🌡️", label: "Warm / Koud", action: () => openZorgScreen("zorg-temperatuur") },
+    { emoji: "📺", label: "TV", action: () => openZorgScreen("zorg-tv") },
+    { emoji: "😂", label: "Grappig", action: () => openZorgScreen("zorg-grappig") }
+  ],
+
+  pijn: [
+    { emoji: "🤕", label: "Hoofd", text: "Ik heb hoofdpijn" },
+    { emoji: "🤢", label: "Buik", text: "Ik heb buikpijn" },
+    { emoji: "🦵", label: "Benen", text: "Ik heb pijn aan mijn benen" },
+    { emoji: "⚡", label: "Rug", text: "Ik heb pijn aan mijn rug" },
+    { emoji: "✋", label: "Handen", text: "Ik heb pijn aan mijn handen" }
+  ],
+
+  voeding: [
+    { emoji: "🥣", label: "Soep", text: "Ik zou graag soep hebben" },
+    { emoji: "🍫☕", label: "Choco", text: "Ik zou graag warme chocomelk hebben" },
+    { emoji: "🥤", label: "Cola", text: "Ik zou graag een cola hebben" },
+    { emoji: "☕", label: "Koffie", text: "Ik zou graag een koffie drinken" },
+    { emoji: "🍮", label: "Pudding", text: "Ik zou graag een pudding hebben" },
+    { emoji: "🍪", label: "Koek", text: "Ik zou graag een koekje hebben" }
+  ],
+
+  familie: [
+    { emoji: "👦", label: "Zoon", text: "Mijn zoon komt" },
+    { emoji: "👨", label: "Broer", text: "Mijn broer komt" },
+    { emoji: "👩", label: "Zus", text: "Mijn zus komt" }
+  ],
+
+emoties: [
+  { emoji: "😊", label: "Blij", text: "Ik ben blij" },
+  { emoji: "😌", label: "Goed vandaag", text: "Ik voel me goed vandaag" },
+  { emoji: "😌✨", label: "Trots", text: "Ik ben trots" },
+  { emoji: "😲", label: "Verrast", text: "Ik ben verrast" },
+  { emoji: "😢", label: "Verdrietig", text: "Ik ben verdrietig" },
+  { emoji: "😠", label: "Boos", text: "Ik ben boos" },
+  { emoji: "😨", label: "Bang", text: "Ik ben bang" },
+  { emoji: "😫", label: "Slecht geslapen", text: "Ik heb slecht geslapen" }
+],
+
+  temperatuur: [
+    { emoji: "🥵", label: "Warm", text: "Ik heb het warm" },
+    { emoji: "🥶", label: "Koud", text: "Ik heb het koud" },
+    { emoji: "💦", label: "Zweet", text: "Ik zweet heel erg" }
+  ],
+
+  tv: [
+    { emoji: "📺", label: "Blokken", text: "Ik wil Blokken op VRT1 zien" },
+    { emoji: "🎶", label: "Ment TV", text: "Ik wil naar Ment TV kijken" },
+    { emoji: "🎧", label: "Xite", text: "Ik wil naar Xite kijken" }
+  ],
+
+  grappig: [
+    {
+      emoji: "🤧",
+      label: "Niezen",
+      action: () => playLocalMusicIOS("Niezen", "media/SNEEZE - Sound Effect.mp3")
+    }
+  ],
+  
+  muziek: [
+  { emoji: "🎵", label: "Sweet Caroline", action: () => playLocalMusicIOS("Sweet Caroline - Neil Diamond", "media/Sweet Caroline - Neil Diamond.mp3") },
+  { emoji: "🎶", label: "Christoff", action: () => playLocalMusicIOS("Sweet Caroline - Christoff", "media/Sweet Caroline - Christoff.mp3") }
+],
+};
+
+function renderZorgGrid(gridId, items, withBack = true) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = "";
+
+  items.forEach(item => {
+    const btn = document.createElement("button");
+    btn.className = "tile sub";
+    btn.innerHTML = `${item.emoji}<br>${item.label}`;
+
+    if (item.action) {
+      btn.onclick = item.action;
+    } else if (item.text) {
+      btn.onclick = () => speak(item.text);
+    }
+
+    grid.appendChild(btn);
+  });
+
+  if (withBack) {
+    const back = document.createElement("button");
+    back.className = "tile back";
+    back.innerHTML = "⬅️<br>Terug";
+    back.onclick = goZorg;
+    grid.appendChild(back);
+  }
+}
+
+
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
 </body>
