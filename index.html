@@ -496,10 +496,24 @@ body.locked .holding {
   <div class="grid" id="zorg-grappig-grid"></div>
 </div>
 
+<div id="zorg-dag" class="screen">
+  <div class="title">Wat wil je doen?</div>
+  <div class="grid" id="zorg-dag-grid"></div>
+</div>
+
+<div id="zorg-binnen" class="screen">
+  <div class="title">Binnen</div>
+  <div class="grid" id="zorg-binnen-grid"></div>
+</div>
+
+<div id="zorg-buiten" class="screen">
+  <div class="title">Buiten</div>
+  <div class="grid" id="zorg-buiten-grid"></div>
+</div>
 <script>
 
 /* ================= DATA ================= */
-let profiles = [{ id: 1, name: "Eddy", phrases: ["Ik heb ", "Ik wil "] }];
+let profiles = [{ id: 1, name: "Eddy", phrases: ["Ik wil ", "Ik heb ", "Maxime is groot ", "Maxime komt zondag ", "Maxime komt zaterdag ", "Ik zie een vliegtuig "] }];
 let activeProfile = profiles[0]; // Eddy is standaard actief
 let text = "";
 
@@ -763,6 +777,18 @@ function openZorgScreen(id) {
     case "zorg-grappig":
       renderZorgGrid("zorg-grappig-grid", zorgData.grappig);
       break;
+	  
+	  case "zorg-dag":
+  renderZorgGrid("zorg-dag-grid", zorgData.dag);
+  break;
+
+case "zorg-binnen":
+  renderZorgGrid("zorg-binnen-grid", zorgData.binnen);
+  break;
+
+case "zorg-buiten":
+  renderZorgGrid("zorg-buiten-grid", zorgData.buiten);
+  break;
   }
 }
 
@@ -818,6 +844,11 @@ function playLocalMusicIOS(title, file) {
   console.log("iOS play gestart:", title);
 }
 
+function goKeyboard() {
+  renderPhrases();          // ✅ vaste woorden opnieuw tonen
+  showScreen("screen-main");
+}
+
 const zorgData = {
   hoofd: [
     { emoji: "✅", label: "Ja", action: () => speak("ja") },
@@ -831,7 +862,9 @@ const zorgData = {
     { emoji: "😴", label: "Moe", action: () => speak("Ik ben moe") },
     { emoji: "🤕", label: "Pijn", action: () => openZorgScreen("zorg-pijn") },
     { emoji: "😊", label: "Emoties", action: () => openZorgScreen("zorg-emoties") },
-    { emoji: "🌡️", label: "Warm / Koud", action: () => openZorgScreen("zorg-temperatuur") }
+    { emoji: "🌡️", label: "Warm / Koud", action: () => openZorgScreen("zorg-temperatuur") },
+	{ emoji: "🌞", label: "Vandaag", action: () => openZorgScreen("zorg-dag") },
+	{ emoji: "⌨️", label: "Toetsenbord", action: () => goKeyboard() }
   ],
 
   pijn: [
@@ -839,7 +872,8 @@ const zorgData = {
     { emoji: "🤢", label: "Buik", text: "Ik heb buikpijn" },
     { emoji: "🦵", label: "Benen", text: "Ik heb pijn aan mijn benen" },
     { emoji: "⚡", label: "Rug", text: "Ik heb pijn aan mijn rug" },
-    { emoji: "✋", label: "Handen", text: "Ik heb pijn aan mijn handen" }
+    { emoji: "✋", label: "Handen", text: "Ik heb pijn aan mijn handen" },
+	{ emoji: "🦟", label: "Jeuk", text: "Het kriebelt." }
   ],
 
   voeding: [
@@ -848,18 +882,22 @@ const zorgData = {
     { emoji: "🥤", label: "Cola", text: "Ik zou graag een cola hebben" },
     { emoji: "☕", label: "Koffie", text: "Ik zou graag een koffie drinken" },
     { emoji: "🍮", label: "Pudding", text: "Ik zou graag een pudding hebben" },
-    { emoji: "🍪", label: "Koek", text: "Ik zou graag een koekje hebben" }
+    { emoji: "🍪", label: "Koek", text: "Ik zou graag een koekje hebben" },
+	{ emoji: "😋", label: "Lekker", text: "Ik vind dit lekker." },
+	{ emoji: "😖", label: "Niet lekker", text: "Ik vind dit niet lekker." }
   ],
 
   familie: [
     { emoji: "👦", label: "Zoon", text: "Mijn zoon komt" },
     { emoji: "👨", label: "Broer", text: "Mijn broer komt" },
-    { emoji: "👩", label: "Zus", text: "Mijn zus komt" }
+    { emoji: "👩", label: "Zus", text: "Mijn zus komt" },
+	{ emoji: "💋", label: "Kusje", text: "Ik wil een kusje geven." }
   ],
 
 emoties: [
   { emoji: "😊", label: "Blij", text: "Ik ben blij" },
   { emoji: "😌", label: "Goed vandaag", text: "Ik voel me goed vandaag" },
+  { emoji: "💪", label: "Grote man", text: "Ik ben een grote man." },
   { emoji: "😌✨", label: "Trots", text: "Ik ben trots" },
   { emoji: "😲", label: "Verrast", text: "Ik ben verrast" },
   { emoji: "😢", label: "Verdrietig", text: "Ik ben verdrietig" },
@@ -891,6 +929,27 @@ emoties: [
   muziek: [
   { emoji: "🎵", label: "Sweet Caroline - Neil Diamond", action: () => playLocalMusicIOS("Sweet Caroline - Neil Diamond", "media/Sweet Caroline - Neil Diamond.mp3") },
   { emoji: "🎶", label: "Sweet Caroline - Christoff", action: () => playLocalMusicIOS("Sweet Caroline - Christoff", "media/Sweet Caroline - Christoff.mp3") }
+],
+
+dag: [
+  { emoji: "🏠", label: "Binnen", action: () => openZorgScreen("zorg-binnen") },
+  { emoji: "🌳", label: "Buiten", action: () => openZorgScreen("zorg-buiten") }
+],
+
+binnen: [
+  { emoji: "📰", label: "Krant", text: "Ik wil in de krant kijken." },
+  { emoji: "🧠", label: "De Slimste Mens", text: "Ik wil De Slimste Mens kijken." },
+  { emoji: "⚽", label: "Sport", text: "Ik wil sport kijken." },
+  { emoji: "🎲", label: "Spelletje", text: "Ik wil een gezelschapsspel spelen." },
+  { emoji: "💆", label: "Verwenmoment", text: "Ik wil een verwenmomentje." },
+  { emoji: "👥", label: "Groepsactiviteit", text: "Ik wil meedoen met de groep." },
+  { emoji: "📺", label: "TV", text: "Ik wil televisie kijken." }
+],
+
+buiten: [
+  { emoji: "🚶", label: "Wandelen", text: "Ik wil gaan wandelen." },
+  { emoji: "☕", label: "Terras", text: "Ik wil op het terras zitten." },
+  { emoji: "🛒", label: "Markt", text: "Ik wil naar de markt gaan." }
 ],
 };
 
