@@ -500,7 +500,7 @@ body.locked .holding {
 
 /* ================= DATA ================= */
 let profiles = [{ id: 1, name: "Eddy", phrases: ["Ik heb ", "Ik wil "] }];
-let activeProfile = null;
+let activeProfile = profiles[0]; // Eddy is standaard actief
 let text = "";
 
 /* ================= NAV ================= */
@@ -688,9 +688,6 @@ document.querySelectorAll(".keyboard button").forEach(b=>{
   }
 });
 
-/* ================= START ================= */
-renderProfiles();
-showScreen("screen-profiles");
 
 /* ================= TOETS-KLEUR LOGICA ================= */
 
@@ -924,6 +921,9 @@ function renderZorgGrid(gridId, items, withBack = true) {
   }
 }
 
+/* ================= START ================= */
+renderProfiles();
+goZorg();  // ✅ zorgData bestaat nu, dus alles werkt
 
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
