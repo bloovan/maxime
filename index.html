@@ -309,7 +309,7 @@ body.high-contrast .keygroup.digits {
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   height: calc(100% - 80px);
 }
@@ -365,6 +365,36 @@ body.locked .holding {
   pointer-events: auto !important;
 }
 
+.help-btn {
+  background: #c62828;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 16px;
+  border-radius: 14px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(198,40,40,0.6); }
+  70%  { box-shadow: 0 0 0 12px rgba(198,40,40,0); }
+  100% { box-shadow: 0 0 0 0 rgba(198,40,40,0); }
+}
+
+/* Hoog contrast */
+body.high-contrast .help-btn {
+  background: #ff0000;
+  color: #000;
+}
+
+.tile.help {
+  background: #c62828;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+}
+
 </style>
 </head>
 
@@ -372,11 +402,11 @@ body.locked .holding {
 
 <div id="top-controls">
   <button onclick="goZorg()">Zorg Communicatie</button>
+  <button onclick="stopHelpAlert()">🔔 STOP HULP</button>
   <button onclick="goProfiles()">Bewoners</button>
   <button onclick="goManage()">Beheer</button>
   <button onclick="toggleHighContrast()">Hoog contrast</button>
 </div>
-
 
 <!-- PROFIELEN -->
 <div id="screen-profiles" class="screen">
@@ -851,6 +881,13 @@ function goKeyboard() {
 
 const zorgData = {
   hoofd: [
+  
+  {
+    emoji: "🔔",
+    label: "HULP",
+    action: () => helpAlert()
+  },
+
     { emoji: "✅", label: "Ja", action: () => speak("ja") },
     { emoji: "❌", label: "Nee", action: () => speak("nee") },
     { emoji: "🎵", label: "Muziek", action: () => openZorgScreen("zorg-muziek") },
@@ -960,6 +997,9 @@ function renderZorgGrid(gridId, items, withBack = true) {
   items.forEach(item => {
     const btn = document.createElement("button");
     btn.className = "tile sub";
+if (item.label === "HULP") {
+  btn.classList.add("help");
+}
     btn.innerHTML = `${item.emoji}<br>${item.label}`;
 
     if (item.action) {
@@ -984,7 +1024,45 @@ function renderZorgGrid(gridId, items, withBack = true) {
 renderProfiles();
 goZorg();  // ✅ zorgData bestaat nu, dus alles werkt
 
+let helpInterval = null;
+
+function helpAlert() {
+  const alarm = document.getElementById("helpSound");
+
+  // Direct afspelen
+  playHelpOnce();
+
+  // Herhalen elke 10 seconden
+  if (!helpInterval) {
+    helpInterval = setInterval(playHelpOnce, 7000);
+  }
+}
+
+function playHelpOnce() {
+  const alarm = document.getElementById("helpSound");
+
+  // Geluid
+  alarm.pause();
+  alarm.currentTime = 0;
+  alarm.volume = 1.0;
+  alarm.play().catch(() => {});
+
+  // Spraak
+  speechSynthesis.cancel(); // voorkomt overlappen
+  speak(activeProfile?.name + " wil hulp");
+}
+``
+
+function stopHelpAlert() {
+  clearInterval(helpInterval);
+  helpInterval = null;
+  speechSynthesis.cancel();
+}
+
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
+<audio id="helpSound" preload="auto">
+  <source src="media/mixkit-elegant-door-announcement-224.wav" type="audio/wav">
+</audio>
 </body>
 </html>
