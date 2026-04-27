@@ -301,12 +301,6 @@ body.high-contrast .keygroup.digits {
 
 /* ===== ZORG COMMUNICATIE ===== */
 
-.title {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -314,14 +308,22 @@ body.high-contrast .keygroup.digits {
   height: calc(100% - 80px);
 }
 
+/* ===== ZORG COMMUNICATIE – BASIS (PASTEL) ===== */
 .tile {
   font-size: 26px;
   font-weight: bold;
-  border: none;
   border-radius: 20px;
   padding: 30px;
   cursor: pointer;
-  color: white;
+
+  background: #eef1f4;        /* zachte basis pastel */
+  color: #1a1a1a;
+
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.tile.sub {
+  filter: brightness(1.05);
 }
 
 .pijn { background: #e57373; }
@@ -337,11 +339,15 @@ body.high-contrast .keygroup.digits {
 .tv { background: #9c857d; }
 .grappig { background: #ffc0cb; }
 
-.sub { background: #546e7a; }
+/* Vandaag / dagstructuur */
+.tile.vandaag {
+  background: #fff2cc;   /* zacht zongeel */
+  color: #1a1a1a;
+}
 
-.back {
-  grid-column: span 2;
-  background: #455a64;
+.tile.toetsenbord {
+  background: #e3e9ee;   /* zacht blauwgrijs */
+  color: #1a1a1a;
 }
 
 /* ===== SCHERM VERGRENDELING ===== */
@@ -401,6 +407,49 @@ body.high-contrast .help-btn {
   }
 }
 
+/* ===== ZORG COMMUNICATIE – VERZACHTE (PASTEL) KLEUREN ===== */
+
+/* Algemene zorgknoppen */
+.tile {
+  color: #1a1a1a;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+
+/* Submenu’s iets lichter, maar NIET overschrijven */
+.tile.sub {
+  filter: brightness(1.03);
+}
+
+.tile.ja          { background: #c8ead5; }
+.tile.nee         { background: #f3c1c1; }
+.tile.pijn        { background: #f5c6c6; }
+.tile.eten        { background: #d7eed9; }
+.tile.toilet      { background: #d6e6f7; }
+.tile.familie     { background: #e3d9f3; }
+.tile.moe         { background: #f6deb7; }
+.tile.muziek      { background: #f1f4c1; }
+.tile.emoties     { background: #fbe4d5; }
+.tile.temperatuur { background: #ead6e6; }
+.tile.tv          { background: #e6ddd8; }
+.tile.grappig     { background: #f7d6e0; }
+.tile.vandaag     { background: #fff2cc; }
+.tile.toetsenbord { background: #e3e9ee; }
+
+/* HELP blijft opvallend */
+.tile.help {
+  background: #c62828;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+}
+
+.tile.back {
+  grid-column: span 2;
+  background: #e1e7ec;   /* neutraal pastel */
+  color: #1a1a1a;
+}
 </style>
 </head>
 
@@ -1003,6 +1052,25 @@ function renderZorgGrid(gridId, items, withBack = true) {
   items.forEach(item => {
     const btn = document.createElement("button");
     btn.className = "tile sub";
+
+// extra kleur op basis van label
+const label = item.label.toLowerCase();
+
+if (label === "ja") btn.classList.add("ja");
+if (label === "nee") btn.classList.add("nee");
+if (label.includes("pijn")) btn.classList.add("pijn");
+if (label.includes("eten")) btn.classList.add("eten");
+if (label.includes("muziek")) btn.classList.add("muziek");
+if (label.includes("emot")) btn.classList.add("emoties");
+if (label.includes("familie")) btn.classList.add("familie");
+if (label.includes("tv")) btn.classList.add("tv");
+if (label.includes("warm") || label.includes("koud")) btn.classList.add("temperatuur");
+if (label.includes("grappig")) btn.classList.add("grappig");
+if (label.includes("toilet")) btn.classList.add("toilet");
+if (label.includes("moe")) btn.classList.add("moe");
+if (item.label === "Vandaag") btn.classList.add("vandaag");
+if (item.label === "Toetsenbord") btn.classList.add("toetsenbord");
+if (item.label === "HELP") btn.classList.add("help");
 if (item.label === "HULP") {
   btn.classList.add("help");
 }
