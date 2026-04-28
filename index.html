@@ -450,6 +450,19 @@ body.high-contrast .help-btn {
   background: #e1e7ec;   /* neutraal pastel */
   color: #1a1a1a;
 }
+
+.screen .title {
+  text-align: center;
+  font-size: 1.5rem;   /* groter maken */
+  font-weight: 600;
+  margin: 24px 0;
+}
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 </style>
 </head>
 
@@ -1064,7 +1077,7 @@ if (label.includes("muziek")) btn.classList.add("muziek");
 if (label.includes("emot")) btn.classList.add("emoties");
 if (label.includes("familie")) btn.classList.add("familie");
 if (label.includes("tv")) btn.classList.add("tv");
-if (label.includes("warm") || label.includes("koud")) btn.classList.add("temperatuur");
+if (label.includes("warm /") || label.includes("/ koud")) btn.classList.add("temperatuur");
 if (label.includes("grappig")) btn.classList.add("grappig");
 if (label.includes("toilet")) btn.classList.add("toilet");
 if (label.includes("moe")) btn.classList.add("moe");
