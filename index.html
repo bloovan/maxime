@@ -614,6 +614,7 @@ body.high-contrast .help-btn {
 let profiles = [{ id: 1, name: "Eddy", phrases: ["Ik wil ", "Ik heb ", "Maxime is groot ", "Maxime komt zondag ", "Maxime komt zaterdag ", "Ik zie een vliegtuig "] }];
 let activeProfile = profiles[0]; // Eddy is standaard actief
 let text = "";
+let zorgModus = false;
 
 /* ================= NAV ================= */
 function showScreen(id){
@@ -837,6 +838,7 @@ function goZorg() {
 }
 
 function openZorgScreen(id) {
+zorgModus = true;          // ✅ zorgmodus aa
   showScreen(id);
 
   switch (id) {
@@ -893,6 +895,7 @@ case "zorg-buiten":
 let screenLocked = false;
 
 function lockScreen() {
+  if (zorgModus) return;     // ✅ NIET locken in zorgmodus
   if (screenLocked) return;
   screenLocked = true;
   document.body.classList.add("locked");
@@ -943,6 +946,7 @@ function playLocalMusicIOS(title, file) {
 }
 
 function goKeyboard() {
+zorgModus = false;         // ✅ zorgmodus uit
   renderPhrases();          // ✅ vaste woorden opnieuw tonen
   showScreen("screen-main");
 }
