@@ -25,6 +25,15 @@ button, .tile {
   touch-action: manipulation;
 }
 
+/* ⛔ Geen tekstselectie overal */
+* {
+  -webkit-user-select: none; /* iOS / Safari */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  -webkit-touch-callout: none; /* iOS contextmenu */
+}
 
 .primary { background: #1F6FEB; color: white; }
 .gray { background: #777; color: white; }
