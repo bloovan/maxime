@@ -21,8 +21,14 @@ button {
   cursor: pointer;
 }
 
+* {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 button, .tile {
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ⛔ Geen tekstselectie overal */
@@ -1171,6 +1177,8 @@ function stopHelpAlert() {
   helpInterval = null;
   speechSynthesis.cancel();
 }
+
+document.addEventListener("contextmenu", e => e.preventDefault());
 
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
