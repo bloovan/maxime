@@ -491,6 +491,86 @@ body.high-contrast .help-btn {
   align-items: center;
 }
 
+/* ===== LETTERGROEPEN ZOALS FOTO ===== */
+
+.keygroup.letters {
+  display: flex;
+  gap: 14px;
+}
+
+/* groepsvlak */
+.letter-group {
+  flex: 1;
+  padding: 14px;
+  border-radius: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* groep met 4 letters */
+.letter-group.wide {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* letters */
+.letter-group button {
+  font-size: 22px;
+  border-radius: 12px;
+}
+
+/* pastelkleuren (zoals foto) */
+.pastel-1 { background:#cfead1; } /* ABC */
+.pastel-2 { background:#cbe4ff; } /* DEF */
+.pastel-3 { background:#e3f1ce; } /* GHI */
+.pastel-4 { background:#e8c6ef; } /* JKL */
+.pastel-5 { background:#ffe2b8; } /* MNO */
+.pastel-6 { background:#bfe5e2; } /* PQRS */
+.pastel-7 { background:#ffccbc; } /* TUV */
+.pastel-8 { background:#f0f4c3; } /* WXYZ */
+
+/* ================= LETTERS ZONDER VAKJES ================= */
+
+/* vaste hoogte per rij */
+.keygroup.letters {
+  align-items: center;
+}
+
+/* individuele letters: GEEN knop-uiterlijk */
+.letter-group button {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+
+  width: 48px;          /* vaste breedte */
+  height: 48px;         /* vaste hoogte */
+  padding: 0;
+}
+
+/* zorg dat letters gecentreerd staan */
+.letter-group {
+  align-items: center;
+}
+
+/* grotere ademruimte zoals foto */
+.letter-group {
+  padding: 18px 22px;
+}
+
+/* brede groep netjes houden */
+.letter-group.wide {
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+/* groepen met 4 letters altijd op 1 lijn */
+.letter-group.wide {
+  grid-template-columns: repeat(4, 1fr);
+}
 </style>
 </head>
 
@@ -520,30 +600,48 @@ body.high-contrast .help-btn {
 
 <div class="keyboard">
 
-  <!-- LETTERS: RIJ 1 -->
+  <!-- RIJ 1 -->
   <div class="keygroup letters">
-    <button>A</button><button>B</button><button>C</button>
-    <button>D</button><button>E</button><button>F</button>
-    <button>G</button><button>H</button><button>I</button>
-    <button>J</button><button>K</button><button>L</button>
-    <button>M</button>
+    <div class="letter-group pastel-1">
+      <button>A</button><button>B</button><button>C</button>
+    </div>
+    <div class="letter-group pastel-2">
+      <button>D</button><button>E</button><button>F</button>
+    </div>
+    <div class="letter-group pastel-3">
+      <button>G</button><button>H</button><button>I</button>
+    </div>
   </div>
 
-  <!-- LETTERS: RIJ 2 -->
+  <!-- RIJ 2 -->
   <div class="keygroup letters">
-    <button>N</button><button>O</button><button>P</button>
-    <button>Q</button><button>R</button><button>S</button>
-    <button>T</button><button>U</button><button>V</button>
-    <button>W</button><button>X</button><button>Y</button>
-    <button>Z</button>
+    <div class="letter-group pastel-4">
+      <button>J</button><button>K</button><button>L</button>
+    </div>
+    <div class="letter-group pastel-5">
+      <button>M</button><button>N</button><button>O</button>
+    </div>
+
+<div class="letter-group pastel-6 wide">
+  <button>P</button><button>Q</button><button>R</button><button>S</button>
+</div>
+
   </div>
 
-  <!-- CIJFERS: APARTE RIJ -->
+  <!-- RIJ 3 -->
+  <div class="keygroup letters">
+    <div class="letter-group pastel-7">
+      <button>T</button><button>U</button><button>V</button>
+    </div>
+    <div class="letter-group pastel-8 wide">
+      <button>W</button><button>X</button><button>Y</button><button>Z</button>
+    </div>
+  </div>
+
+  <!-- CIJFERS -->
   <div class="keygroup digits">
-    <button>1</button><button>2</button><button>3</button>
-    <button>4</button><button>5</button><button>6</button>
-    <button>7</button><button>8</button><button>9</button>
-    <button>0</button>
+    <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+    <button>6</button><button>7</button><button>8</button><button>9</button><button>0</button>
   </div>
 
   <!-- SPATIE -->
