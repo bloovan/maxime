@@ -697,6 +697,7 @@ body.high-contrast .help-btn {
 
 <div id="zorg-muziek" class="screen">
   <div class="title">Naar welk liedje wil je luisteren?</div>
+  <button class="help-btn" onclick="stopMuziek()">⏹ STOP MUZIEK</button>
   <div class="grid" id="zorg-muziek-grid"></div>
 </div>
 
@@ -1161,11 +1162,31 @@ emoties: [
     }
   ],
   
-  muziek: [
-  { emoji: "🎵", label: "Sweet Caroline - Neil Diamond", action: () => playLocalMusicIOS("Sweet Caroline - Neil Diamond", "media/Sweet Caroline - Neil Diamond.mp3") },
-  { emoji: "🎶", label: "Sweet Caroline - Christoff", action: () => playLocalMusicIOS("Sweet Caroline - Christoff", "media/Sweet Caroline - Christoff.mp3") },
-  { emoji: "🎶", label: "Zeven zonden - Christoff", action: () => playLocalMusicIOS("Zeven Zonden - Christoff", "media/Zeven Zonden.mp3") },
-  { emoji: "🎶", label: "Laat de zon in je hart - Willy Sommers", action: () => playLocalMusicIOS("Laat de zon in je hart - Willy Sommers", "media/Laat de zon in je hart.mp3") }
+muziek: [
+  {
+    emoji: "🎵",
+    label: "Sweet Caroline - Neil Diamond",
+    action: () =>
+      speelLiedjeHerhalen("media/Sweet Caroline - Neil Diamond.mp3")
+  },
+  {
+    emoji: "🎶",
+    label: "Sweet Caroline - Christoff",
+    action: () =>
+      speelLiedjeHerhalen("media/Sweet Caroline - Christoff.mp3")
+  },
+  {
+    emoji: "🎶",
+    label: "Zeven zonden - Christoff",
+    action: () =>
+      speelLiedjeHerhalen("media/Zeven Zonden.mp3")
+  },
+  {
+    emoji: "🎶",
+    label: "Laat de zon in je hart - Willy Sommers",
+    action: () =>
+      speelLiedjeHerhalen("media/Laat de zon in je hart.mp3")
+  }
 ],
 
 dag: [
@@ -1280,6 +1301,42 @@ function stopHelpAlert() {
 
 document.addEventListener("contextmenu", e => e.preventDefault());
 
+/* ================= MUZIEK – CONTINU HERHALEN ================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const audioPlayer = document.getElementById("audioPlayer");
+  if (!audioPlayer) return;
+
+  let loopingSong = null;
+  let isLooping = false;
+
+  audioPlayer.addEventListener("ended", () => {
+    if (!isLooping || !loopingSong) return;
+    audioPlayer.currentTime = 0;
+    audioPlayer.play().catch(() => {});
+  });
+
+  window.speelLiedjeHerhalen = function (bestand) {
+    loopingSong = bestand;
+    isLooping = true;
+
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+    audioPlayer.src = bestand;
+    audioPlayer.load();              // ✅ iOS verplicht
+    audioPlayer.play().catch(() => {});
+  };
+
+  window.stopMuziek = function () {
+    isLooping = false;
+    loopingSong = null;
+
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+  };
+
+});
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
 <audio id="helpSound" preload="auto">
