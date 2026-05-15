@@ -1172,25 +1172,25 @@ muziek: [
     emoji: "🎵",
     label: "Sweet Caroline - Neil Diamond",
     action: () =>
-      speelLiedjeHerhalen("media/Sweet Caroline - Neil Diamond.mp3")
+      speelPlaylistVanaf("media/Sweet Caroline - Neil Diamond.mp3")
   },
   {
     emoji: "🎶",
     label: "Sweet Caroline - Christoff",
     action: () =>
-      speelLiedjeHerhalen("media/Sweet Caroline - Christoff.mp3")
+      speelPlaylistVanaf("media/Sweet Caroline - Christoff.mp3")
   },
   {
     emoji: "🎶",
     label: "Zeven zonden - Christoff",
     action: () =>
-      speelLiedjeHerhalen("media/Zeven Zonden.mp3")
+      speelPlaylistVanaf("media/Zeven Zonden.mp3")
   },
   {
     emoji: "🎶",
     label: "Laat de zon in je hart - Willy Sommers",
     action: () =>
-      speelLiedjeHerhalen("media/Laat de zon in je hart.mp3")
+      speelPlaylistVanaf("media/Laat de zon in je hart.mp3")
   }
 ],
 
@@ -1306,42 +1306,69 @@ function stopHelpAlert() {
 
 document.addEventListener("contextmenu", e => e.preventDefault());
 
-/* ================= MUZIEK – CONTINU HERHALEN ================= */
+/* ================= MUZIEK – LIEDJE NA LIEDJE ================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
   const audioPlayer = document.getElementById("audioPlayer");
   if (!audioPlayer) return;
 
-  let loopingSong = null;
-  let isLooping = false;
+  let playlist = zorgData.muziek;
+  let currentIndex = 0;
+  let playing = false;
 
-  audioPlayer.addEventListener("ended", () => {
-    if (!isLooping || !loopingSong) return;
-    audioPlayer.currentTime = 0;
-    audioPlayer.play().catch(() => {});
-  });
+  // ▶️ Speel gekozen liedje en start playlist
+  window.speelPlaylistVanaf = function (bestand) {
 
-  window.speelLiedjeHerhalen = function (bestand) {
-    loopingSong = bestand;
-    isLooping = true;
+    // Zoek index van gekozen liedje
+    currentIndex = playlist.findIndex(p =>
+      p.action.toString().includes(bestand)
+    );
+
+    if (currentIndex === -1) currentIndex = 0;
+
+    startSong();
+  };
+
+  function startSong() {
+    const item = playlist[currentIndex];
+
+    // bestand uit action halen
+    const match = item.action.toString().match(/"(.*?)"/);
+    if (!match) return;
+
+    const bestand = match[1];
+
+    playing = true;
 
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
     audioPlayer.src = bestand;
-    audioPlayer.load();              // ✅ iOS verplicht
+    audioPlayer.load();
     audioPlayer.play().catch(() => {});
-  };
+  }
 
+  // ⏭ automatisch volgend liedje
+  audioPlayer.addEventListener("ended", () => {
+    if (!playing) return;
+
+    currentIndex++;
+    if (currentIndex >= playlist.length) {
+      currentIndex = 0; // opnieuw beginnen (of stop hier indien gewenst)
+    }
+
+    startSong();
+  });
+
+  // ⏹ Stop knop
   window.stopMuziek = function () {
-    isLooping = false;
-    loopingSong = null;
-
+    playing = false;
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
   };
 
 });
+
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
 <audio id="helpSound" preload="auto">
