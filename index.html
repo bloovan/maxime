@@ -697,7 +697,20 @@ body.high-contrast .help-btn {
 
 <div id="zorg-muziek" class="screen">
   <div class="title">Naar welk liedje wil je luisteren?</div>
-  <button class="help-btn" onclick="stopMuziek()">⏹ STOP MUZIEK</button>
+<div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+
+  <button class="help-btn" onclick="stopMuziek()">⏹ STOP</button>
+
+  <button id="pauseBtn" class="help-btn" onclick="togglePause()" style="background:#f9a825;">
+    ⏸ PAUZE
+  </button>
+
+  <!-- ✅ NIEUWE HERHAAL KNOP -->
+  <button id="repeatBtn" class="help-btn" onclick="toggleRepeat()" style="background:#6a1b9a;">
+    🔁 HERHAAL UIT
+  </button>
+
+</div>
   <div class="grid" id="zorg-muziek-grid"></div>
 </div>
 
@@ -1171,26 +1184,22 @@ muziek: [
   {
     emoji: "🎵",
     label: "Sweet Caroline - Neil Diamond",
-    action: () =>
-      speelPlaylistVanaf("media/Sweet Caroline - Neil Diamond.mp3")
+    file: "media/Sweet Caroline - Neil Diamond.mp3"
   },
   {
     emoji: "🎶",
     label: "Sweet Caroline - Christoff",
-    action: () =>
-      speelPlaylistVanaf("media/Sweet Caroline - Christoff.mp3")
+    file: "media/Sweet Caroline - Christoff.mp3"
   },
   {
     emoji: "🎶",
     label: "Zeven zonden - Christoff",
-    action: () =>
-      speelPlaylistVanaf("media/Zeven Zonden.mp3")
+    file: "media/Zeven Zonden.mp3"
   },
   {
     emoji: "🎶",
     label: "Laat de zon in je hart - Willy Sommers",
-    action: () =>
-      speelPlaylistVanaf("media/Laat de zon in je hart.mp3")
+    file: "media/Laat de zon in je hart.mp3"
   }
 ],
 
@@ -1247,11 +1256,15 @@ if (item.label === "HULP") {
 }
     btn.innerHTML = `${item.emoji}<br>${item.label}`;
 
-    if (item.action) {
-      btn.onclick = item.action;
-    } else if (item.text) {
-      btn.onclick = () => speak(item.text);
-    }
+if (item.file) {
+  btn.onclick = () => speelPlaylistVanaf(item.file);
+}
+else if (item.action) {
+  btn.onclick = item.action;
+}
+else if (item.text) {
+  btn.onclick = () => speak(item.text);
+}
 
     grid.appendChild(btn);
   });
@@ -1318,47 +1331,50 @@ document.addEventListener("DOMContentLoaded", () => {
   let playing = false;
 
   // ▶️ Speel gekozen liedje en start playlist
-  window.speelPlaylistVanaf = function (bestand) {
+window.speelPlaylistVanaf = function (bestand) {
 
-    // Zoek index van gekozen liedje
-    currentIndex = playlist.findIndex(p =>
-      p.action.toString().includes(bestand)
-    );
+  currentIndex = playlist.findIndex(p => p.file === bestand);
 
-    if (currentIndex === -1) currentIndex = 0;
+  if (currentIndex === -1) currentIndex = 0;
 
-    startSong();
-  };
+  startSong();
+};
 
-  function startSong() {
-    const item = playlist[currentIndex];
+function startSong() {
+  const item = playlist[currentIndex];
+  if (!item || !item.file) return;
 
-    // bestand uit action halen
-    const match = item.action.toString().match(/"(.*?)"/);
-    if (!match) return;
+  playing = true;
+  isPaused = false;
 
-    const bestand = match[1];
-
-    playing = true;
-
-    audioPlayer.pause();
-    audioPlayer.currentTime = 0;
-    audioPlayer.src = bestand;
-    audioPlayer.load();
-    audioPlayer.play().catch(() => {});
-  }
+  audioPlayer.pause();
+  audioPlayer.currentTime = 0;
+  audioPlayer.src = item.file;
+  audioPlayer.load();
+  audioPlayer.play().catch(() => {});
+}
 
   // ⏭ automatisch volgend liedje
   audioPlayer.addEventListener("ended", () => {
-    if (!playing) return;
+  if (!playing) return;
 
-    currentIndex++;
-    if (currentIndex >= playlist.length) {
-      currentIndex = 0; // opnieuw beginnen (of stop hier indien gewenst)
-    }
-
+  // ✅ ALS HERHAAL AAN → zelfde liedje opnieuw
+  if (repeatOne) {
     startSong();
-  });
+    return;
+  }
+
+  // anders → volgende liedje
+  currentIndex++;
+  if (currentIndex >= playlist.length) {
+    currentIndex = 0;
+  }
+
+  startSong();
+  
+  isPaused = false;
+});
+
 
   // ⏹ Stop knop
   window.stopMuziek = function () {
@@ -1368,6 +1384,40 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 });
+/* ================= PAUZE / HERVAT ================= */
+
+let isPaused = false;
+
+function togglePause() {
+  const player = document.getElementById("audioPlayer");
+  if (!player) return;
+
+  if (!isPaused) {
+    player.pause();
+    isPaused = true;
+  } else {
+    player.play().catch(() => {});
+    isPaused = false;
+  }
+}
+
+/* ================= HERHAAL FUNCTIE ================= */
+
+let repeatOne = false;
+
+function toggleRepeat() {
+  repeatOne = !repeatOne;
+
+  const btn = document.getElementById("repeatBtn");
+
+  if (repeatOne) {
+    btn.innerHTML = "🔁 HERHAAL AAN";
+    btn.style.background = "#2e7d32"; // groen = actief
+  } else {
+    btn.innerHTML = "🔁 HERHAAL UIT";
+    btn.style.background = "#6a1b9a"; // paars = uit
+  }
+}
 
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
