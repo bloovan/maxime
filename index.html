@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Maxime</title>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Maxime">
+<link rel="apple-touch-icon" href="icon-192.png">
 
 <style>
 html, body {
@@ -1438,6 +1443,15 @@ function toggleRepeat() {
   }
 }
 
+/* ================= PWA REGISTRATIE ================= */
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js")
+      .then(reg => console.log("SW geregistreerd"))
+      .catch(err => console.log("SW fout:", err));
+  });
+}
 </script>
 <audio id="audioPlayer" preload="auto"></audio>
 <audio id="helpSound" preload="auto">
