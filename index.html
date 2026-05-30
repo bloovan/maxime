@@ -705,7 +705,6 @@ body.high-contrast .help-btn {
     ⏸ PAUZE
   </button>
 
-  <!-- ✅ NIEUWE HERHAAL KNOP -->
   <button id="repeatBtn" class="help-btn" onclick="toggleRepeat()" style="background:#6a1b9a;">
     🔁 HERHAAL UIT
   </button>
@@ -747,6 +746,11 @@ body.high-contrast .help-btn {
 <div id="zorg-buiten" class="screen">
   <div class="title">Buiten</div>
   <div class="grid" id="zorg-buiten-grid"></div>
+</div>
+
+<div id="zorg-weekdagen" class="screen">
+  <div class="title">Welke dag?</div>
+  <div class="grid" id="zorg-weekdagen-grid"></div>
 </div>
 <script>
 
@@ -1019,16 +1023,20 @@ zorgModus = true;          // ✅ zorgmodus aa
       break;
 	  
 	  case "zorg-dag":
-  renderZorgGrid("zorg-dag-grid", zorgData.dag);
-  break;
+	  renderZorgGrid("zorg-dag-grid", zorgData.dag);
+	  break;
 
-case "zorg-binnen":
-  renderZorgGrid("zorg-binnen-grid", zorgData.binnen);
-  break;
+	case "zorg-binnen":
+	  renderZorgGrid("zorg-binnen-grid", zorgData.binnen);
+	  break;
 
-case "zorg-buiten":
-  renderZorgGrid("zorg-buiten-grid", zorgData.buiten);
-  break;
+	case "zorg-buiten":
+	  renderZorgGrid("zorg-buiten-grid", zorgData.buiten);
+	  break;
+	  
+	case "zorg-weekdagen":
+	  renderZorgGrid("zorg-weekdagen-grid", zorgData.weekdagen);
+	  break;
   }
 }
 
@@ -1112,7 +1120,8 @@ const zorgData = {
     { emoji: "🤕", label: "Pijn", action: () => openZorgScreen("zorg-pijn") },
     { emoji: "😊", label: "Emoties", action: () => openZorgScreen("zorg-emoties") },
     { emoji: "🌡️", label: "Warm / Koud", action: () => openZorgScreen("zorg-temperatuur") },
-	{ emoji: "🌞", label: "Vandaag", action: () => openZorgScreen("zorg-dag") },
+	{ emoji: "🌞", label: "Vandaag", action: () => openZorgScreen("zorg-dag") },	
+	{ emoji: "📅", label: "Weekdagen", action: () => openZorgScreen("zorg-weekdagen") },
 	{ emoji: "⌨️", label: "Toetsenbord", action: () => goKeyboard() }
   ],
 
@@ -1222,6 +1231,16 @@ buiten: [
   { emoji: "🚶", label: "Wandelen", text: "Ik wil gaan wandelen." },
   { emoji: "☕", label: "Terras", text: "Ik wil op het terras zitten." },
   { emoji: "🛒", label: "Markt", text: "Ik wil naar de markt gaan." }
+],
+
+weekdagen: [
+  { emoji: "📅", label: "Maandag", text: "Maandag" },
+  { emoji: "📅", label: "Dinsdag", text: "Dinsdag" },
+  { emoji: "📅", label: "Woensdag", text: "Woensdag" },
+  { emoji: "📅", label: "Donderdag", text: "Donderdag" },
+  { emoji: "📅", label: "Vrijdag", text: "Vrijdag" },
+  { emoji: "📅", label: "Zaterdag", text: "Zaterdag" },
+  { emoji: "📅", label: "Zondag", text: "Zondag" }
 ],
 };
 
