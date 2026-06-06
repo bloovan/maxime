@@ -757,6 +757,12 @@ body.high-contrast .help-btn {
   <div class="title">Welke dag?</div>
   <div class="grid" id="zorg-weekdagen-grid"></div>
 </div>
+
+<div id="zorg-grootklein" class="screen">
+  <div class="title">Groot of klein</div>
+  <div class="grid" id="zorg-grootklein-grid"></div>
+</div>
+
 <script>
 
 /* ================= DATA ================= */
@@ -1042,6 +1048,11 @@ zorgModus = true;          // ✅ zorgmodus aa
 	case "zorg-weekdagen":
 	  renderZorgGrid("zorg-weekdagen-grid", zorgData.weekdagen);
 	  break;
+	  
+	case "zorg-grootklein":
+		renderZorgGrid("zorg-grootklein-grid", zorgData.grootklein);
+		break;
+
   }
 }
 
@@ -1127,6 +1138,7 @@ const zorgData = {
     { emoji: "🌡️", label: "Warm / Koud", action: () => openZorgScreen("zorg-temperatuur") },
 	{ emoji: "🌞", label: "Vandaag", action: () => openZorgScreen("zorg-dag") },	
 	{ emoji: "📅", label: "Weekdagen", action: () => openZorgScreen("zorg-weekdagen") },
+	{ emoji: "📏", label: "Groot/Klein", action: () => openZorgScreen("zorg-grootklein") },
 	{ emoji: "⌨️", label: "Toetsenbord", action: () => goKeyboard() }
   ],
 
@@ -1246,6 +1258,11 @@ weekdagen: [
   { emoji: "📅", label: "Vrijdag", text: "Vrijdag" },
   { emoji: "📅", label: "Zaterdag", text: "Zaterdag" },
   { emoji: "📅", label: "Zondag", text: "Zondag" }
+],
+
+grootklein: [
+  { emoji: "📏", label: "Groter", text: "Ik ben groter dan jij hé" },
+  { emoji: "📐", label: "Kleiner", text: "Jij bent kleiner dan mij hé" }
 ],
 };
 
