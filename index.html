@@ -587,6 +587,8 @@ body.high-contrast .help-btn {
   <button onclick="goProfiles()">Bewoners</button>
   <button onclick="goManage()">Beheer</button>
   <button onclick="toggleHighContrast()">Hoog contrast</button>
+  <button onclick="decreaseDelay()">− Delay</button>
+<button onclick="increaseDelay()">+ Delay</button>
 </div>
 
 <!-- PROFIELEN -->
@@ -906,7 +908,24 @@ function removeSelectedPhrase(){
 }
 
 /* ================= HOLD LOGICA (ALLEEN TOETSEN & PHRASES) ================= */
-const HOLD_TIME = 600;
+
+// ✅ INSTELBARE DELAY (ms)
+let HOLD_TIME = 600;
+
+// ✅ Delay aanpassen
+function increaseDelay() {
+  HOLD_TIME += 200;
+  showDelay();
+}
+
+function decreaseDelay() {
+  HOLD_TIME = Math.max(0, HOLD_TIME - 200);
+  showDelay();
+}
+
+function showDelay() {
+  display.textContent = "Delay: " + HOLD_TIME + " ms";
+}
 
 function setupHold(button, action){
   let timer=null;
